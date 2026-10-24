@@ -1,0 +1,455 @@
+{
+  "run_at": "2026-10-24 18:55 UTC",
+  "results": [
+    {
+      "check_id": "DQ-01",
+      "description": "Table has enough rows to model",
+      "severity": "fail",
+      "passed": true,
+      "observed": "618,584 rows",
+      "expected": ">= 100,000 rows",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-02",
+      "description": "loan_id is unique",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 duplicate ids",
+      "expected": "0 duplicates",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-03.loan_id",
+      "description": "loan_id is never null",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 nulls",
+      "expected": "0 nulls",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-03.issue_date",
+      "description": "issue_date is never null",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 nulls",
+      "expected": "0 nulls",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-03.is_default",
+      "description": "is_default is never null",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 nulls",
+      "expected": "0 nulls",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-03.loan_amnt",
+      "description": "loan_amnt is never null",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 nulls",
+      "expected": "0 nulls",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-03.int_rate",
+      "description": "int_rate is never null",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 nulls",
+      "expected": "0 nulls",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-03.grade",
+      "description": "grade is never null",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 nulls",
+      "expected": "0 nulls",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-03.annual_inc",
+      "description": "annual_inc is never null",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 nulls",
+      "expected": "0 nulls",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-03.fico_mid",
+      "description": "fico_mid is never null",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 nulls",
+      "expected": "0 nulls",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-04",
+      "description": "is_default is 0 or 1",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 invalid values",
+      "expected": "0 invalid values",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-05",
+      "description": "Default rate is in a plausible range",
+      "severity": "fail",
+      "passed": true,
+      "observed": "13.90%",
+      "expected": "5% to 30%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.loan_amnt",
+      "description": "loan_amnt within [500, 40,000]",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0.000% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.int_rate",
+      "description": "int_rate within [5, 31]",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0.000% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.fico_mid",
+      "description": "fico_mid within [600, 850]",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0.000% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.annual_inc",
+      "description": "annual_inc within [0, 10,000,000]",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0.000% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.dti",
+      "description": "dti within [0, 60]",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.002% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.revol_util",
+      "description": "revol_util within [0, 150]",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.002% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.credit_history_years",
+      "description": "credit_history_years within [0, 70]",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.000% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.issue_year",
+      "description": "issue_year null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.split",
+      "description": "split null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.installment",
+      "description": "installment null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.sub_grade",
+      "description": "sub_grade null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.purpose",
+      "description": "purpose null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.emp_length_years",
+      "description": "emp_length_years null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "5.8% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.home_ownership",
+      "description": "home_ownership null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.verification_status",
+      "description": "verification_status null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.addr_state",
+      "description": "addr_state null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.dti",
+      "description": "dti null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.delinq_2yrs",
+      "description": "delinq_2yrs null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.inq_last_6mths",
+      "description": "inq_last_6mths null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.open_acc",
+      "description": "open_acc null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.pub_rec",
+      "description": "pub_rec null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.revol_bal",
+      "description": "revol_bal null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.revol_util",
+      "description": "revol_util null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.1% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.total_acc",
+      "description": "total_acc null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.mort_acc",
+      "description": "mort_acc null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "5.7% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.pub_rec_bankruptcies",
+      "description": "pub_rec_bankruptcies null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.1% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.earliest_cr_line_date",
+      "description": "earliest_cr_line_date null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.credit_history_years",
+      "description": "credit_history_years null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.loan_to_income",
+      "description": "loan_to_income null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.payment_to_income",
+      "description": "payment_to_income null share is acceptable",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-08",
+      "description": "No post-issue (leakage) fields in the model table",
+      "severity": "fail",
+      "passed": true,
+      "observed": "none found",
+      "expected": "none",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-09",
+      "description": "Credit history starts before the issue date",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0.000% after issue date",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-10",
+      "description": "Every loan is in the sample window and has a split",
+      "severity": "fail",
+      "passed": true,
+      "observed": "0 loans outside",
+      "expected": "0 loans outside",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-11.train",
+      "description": "'train' split has loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "72,566 loans",
+      "expected": "> 0 loans",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-11.valid",
+      "description": "'valid' split has loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100,422 loans",
+      "expected": "> 0 loans",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-11.oot",
+      "description": "'oot' split has loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "445,596 loans",
+      "expected": "> 0 loans",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-12",
+      "description": "Default rate increases from grade A to G",
+      "severity": "warn",
+      "passed": true,
+      "observed": "5.5% < 11.2% < 17.9% < 23.3% < 28.6% < 32.8% < 39.9%",
+      "expected": "non-decreasing",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-13",
+      "description": "Installment reconciles to amount, rate and term (within 2%)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.14% mismatched",
+      "expected": "<= 1%",
+      "status": "PASS"
+    }
+  ]
+}
