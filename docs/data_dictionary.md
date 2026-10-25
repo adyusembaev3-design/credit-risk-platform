@@ -14,7 +14,7 @@ One row per loan. Source: Lending Club accepted loans 2007–2018Q4 (Kaggle `wor
 | `issue_date` | date | Month the loan was funded (first of the month) |
 | `issue_year` | int | Year of `issue_date` |
 | `is_default` | int | **Target.** 1 if Charged Off or Default, 0 if Fully Paid |
-| `split` | text | `train` 2007–2012, `valid` 2013, `oot` 2014–2015 (out-of-time test) |
+| `split` | text | `history` 2007–2012 (stress testing only), `train` Jan 2013–Jun 2014, `valid` Jul–Dec 2014, `oot` 2015 (out-of-time test) |
 
 ## Loan terms
 
@@ -54,6 +54,26 @@ One row per loan. Source: Lending Club accepted loans 2007–2018Q4 (Kaggle `wor
 | `pub_rec_bankruptcies` | double | Bankruptcies on record |
 | `earliest_cr_line_date` | date | Month the first credit line opened |
 | `credit_history_years` | double | Years from first credit line to issue date |
+
+## Extended bureau attributes (reported from 2013; null for `history` loans)
+
+| Column | Type | Definition |
+| --- | --- | --- |
+| `mths_since_last_delinq` | double | Months since most recent delinquency (null = none on file) |
+| `mths_since_recent_inq` | double | Months since most recent inquiry (null = none in window) |
+| `acc_open_past_24mths` | double | Accounts opened in the past 24 months |
+| `num_tl_op_past_12m` | double | Accounts opened in the past 12 months |
+| `bc_util` | double | Bankcard utilization, percent |
+| `bc_open_to_buy` | double | Unused bankcard credit, USD |
+| `percent_bc_gt_75` | double | Share of bankcards above 75% utilization, percent |
+| `tot_hi_cred_lim` | double | Total credit limit across accounts, USD |
+| `total_rev_hi_lim` | double | Total revolving credit limit, USD |
+| `tot_cur_bal` | double | Total current balance, USD |
+| `avg_cur_bal` | double | Average current balance per account, USD |
+| `mo_sin_old_rev_tl_op` | double | Months since oldest revolving account opened |
+| `mo_sin_rcnt_tl` | double | Months since most recent account opened |
+| `num_actv_rev_tl` | double | Active revolving accounts |
+| `pct_tl_nvr_dlq` | double | Share of accounts never delinquent, percent |
 
 ## Derived ratios
 

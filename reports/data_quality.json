@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-10-24 18:55 UTC",
+  "run_at": "2026-10-25 04:05 UTC",
   "results": [
     {
       "check_id": "DQ-01",
@@ -173,8 +173,35 @@
       "status": "PASS"
     },
     {
+      "check_id": "DQ-06.bc_util",
+      "description": "bc_util within [0, 200]",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.001% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.percent_bc_gt_75",
+      "description": "percent_bc_gt_75 within [0, 100]",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.000% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-06.pct_tl_nvr_dlq",
+      "description": "pct_tl_nvr_dlq within [0, 100]",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.000% out of range",
+      "expected": "<= 0.1%",
+      "status": "PASS"
+    },
+    {
       "check_id": "DQ-07.issue_year",
-      "description": "issue_year null share is acceptable",
+      "description": "issue_year null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -183,7 +210,7 @@
     },
     {
       "check_id": "DQ-07.split",
-      "description": "split null share is acceptable",
+      "description": "split null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -192,7 +219,7 @@
     },
     {
       "check_id": "DQ-07.installment",
-      "description": "installment null share is acceptable",
+      "description": "installment null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -201,7 +228,7 @@
     },
     {
       "check_id": "DQ-07.sub_grade",
-      "description": "sub_grade null share is acceptable",
+      "description": "sub_grade null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -210,7 +237,7 @@
     },
     {
       "check_id": "DQ-07.purpose",
-      "description": "purpose null share is acceptable",
+      "description": "purpose null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -219,16 +246,16 @@
     },
     {
       "check_id": "DQ-07.emp_length_years",
-      "description": "emp_length_years null share is acceptable",
+      "description": "emp_length_years null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
-      "observed": "5.8% null",
+      "observed": "6.2% null",
       "expected": "<= 20%",
       "status": "PASS"
     },
     {
       "check_id": "DQ-07.home_ownership",
-      "description": "home_ownership null share is acceptable",
+      "description": "home_ownership null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -237,7 +264,7 @@
     },
     {
       "check_id": "DQ-07.verification_status",
-      "description": "verification_status null share is acceptable",
+      "description": "verification_status null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -246,7 +273,7 @@
     },
     {
       "check_id": "DQ-07.addr_state",
-      "description": "addr_state null share is acceptable",
+      "description": "addr_state null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -255,7 +282,7 @@
     },
     {
       "check_id": "DQ-07.dti",
-      "description": "dti null share is acceptable",
+      "description": "dti null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -264,7 +291,7 @@
     },
     {
       "check_id": "DQ-07.delinq_2yrs",
-      "description": "delinq_2yrs null share is acceptable",
+      "description": "delinq_2yrs null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -273,7 +300,7 @@
     },
     {
       "check_id": "DQ-07.inq_last_6mths",
-      "description": "inq_last_6mths null share is acceptable",
+      "description": "inq_last_6mths null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -282,7 +309,7 @@
     },
     {
       "check_id": "DQ-07.open_acc",
-      "description": "open_acc null share is acceptable",
+      "description": "open_acc null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -291,7 +318,7 @@
     },
     {
       "check_id": "DQ-07.pub_rec",
-      "description": "pub_rec null share is acceptable",
+      "description": "pub_rec null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -300,7 +327,7 @@
     },
     {
       "check_id": "DQ-07.revol_bal",
-      "description": "revol_bal null share is acceptable",
+      "description": "revol_bal null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -309,16 +336,16 @@
     },
     {
       "check_id": "DQ-07.revol_util",
-      "description": "revol_util null share is acceptable",
+      "description": "revol_util null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
-      "observed": "0.1% null",
+      "observed": "0.0% null",
       "expected": "<= 20%",
       "status": "PASS"
     },
     {
       "check_id": "DQ-07.total_acc",
-      "description": "total_acc null share is acceptable",
+      "description": "total_acc null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -327,25 +354,142 @@
     },
     {
       "check_id": "DQ-07.mort_acc",
-      "description": "mort_acc null share is acceptable",
+      "description": "mort_acc null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
-      "observed": "5.7% null",
+      "observed": "0.0% null",
       "expected": "<= 20%",
       "status": "PASS"
     },
     {
       "check_id": "DQ-07.pub_rec_bankruptcies",
-      "description": "pub_rec_bankruptcies null share is acceptable",
+      "description": "pub_rec_bankruptcies null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
-      "observed": "0.1% null",
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.acc_open_past_24mths",
+      "description": "acc_open_past_24mths null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.num_tl_op_past_12m",
+      "description": "num_tl_op_past_12m null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.bc_util",
+      "description": "bc_util null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "1.1% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.bc_open_to_buy",
+      "description": "bc_open_to_buy null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "1.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.percent_bc_gt_75",
+      "description": "percent_bc_gt_75 null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "1.1% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.tot_hi_cred_lim",
+      "description": "tot_hi_cred_lim null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.total_rev_hi_lim",
+      "description": "total_rev_hi_lim null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.tot_cur_bal",
+      "description": "tot_cur_bal null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.avg_cur_bal",
+      "description": "avg_cur_bal null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.mo_sin_old_rev_tl_op",
+      "description": "mo_sin_old_rev_tl_op null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.mo_sin_rcnt_tl",
+      "description": "mo_sin_rcnt_tl null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.num_actv_rev_tl",
+      "description": "num_actv_rev_tl null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
+      "expected": "<= 20%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-07.pct_tl_nvr_dlq",
+      "description": "pct_tl_nvr_dlq null share is acceptable (model splits)",
+      "severity": "warn",
+      "passed": true,
+      "observed": "0.0% null",
       "expected": "<= 20%",
       "status": "PASS"
     },
     {
       "check_id": "DQ-07.earliest_cr_line_date",
-      "description": "earliest_cr_line_date null share is acceptable",
+      "description": "earliest_cr_line_date null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -354,7 +498,7 @@
     },
     {
       "check_id": "DQ-07.credit_history_years",
-      "description": "credit_history_years null share is acceptable",
+      "description": "credit_history_years null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -363,7 +507,7 @@
     },
     {
       "check_id": "DQ-07.loan_to_income",
-      "description": "loan_to_income null share is acceptable",
+      "description": "loan_to_income null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -372,7 +516,7 @@
     },
     {
       "check_id": "DQ-07.payment_to_income",
-      "description": "payment_to_income null share is acceptable",
+      "description": "payment_to_income null share is acceptable (model splits)",
       "severity": "warn",
       "passed": true,
       "observed": "0.0% null",
@@ -407,11 +551,20 @@
       "status": "PASS"
     },
     {
+      "check_id": "DQ-11.history",
+      "description": "'history' split has loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "72,566 loans",
+      "expected": "> 0 loans",
+      "status": "PASS"
+    },
+    {
       "check_id": "DQ-11.train",
       "description": "'train' split has loans",
       "severity": "fail",
       "passed": true,
-      "observed": "72,566 loans",
+      "observed": "172,377 loans",
       "expected": "> 0 loans",
       "status": "PASS"
     },
@@ -420,7 +573,7 @@
       "description": "'valid' split has loans",
       "severity": "fail",
       "passed": true,
-      "observed": "100,422 loans",
+      "observed": "90,615 loans",
       "expected": "> 0 loans",
       "status": "PASS"
     },
@@ -429,7 +582,7 @@
       "description": "'oot' split has loans",
       "severity": "fail",
       "passed": true,
-      "observed": "445,596 loans",
+      "observed": "283,026 loans",
       "expected": "> 0 loans",
       "status": "PASS"
     },
@@ -449,6 +602,123 @@
       "passed": true,
       "observed": "0.14% mismatched",
       "expected": "<= 1%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.acc_open_past_24mths",
+      "description": "acc_open_past_24mths populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.bc_util",
+      "description": "bc_util populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "98.9% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.bc_open_to_buy",
+      "description": "bc_open_to_buy populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "99.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.num_tl_op_past_12m",
+      "description": "num_tl_op_past_12m populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.percent_bc_gt_75",
+      "description": "percent_bc_gt_75 populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "98.9% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.tot_hi_cred_lim",
+      "description": "tot_hi_cred_lim populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.total_rev_hi_lim",
+      "description": "total_rev_hi_lim populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.tot_cur_bal",
+      "description": "tot_cur_bal populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.avg_cur_bal",
+      "description": "avg_cur_bal populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.mo_sin_old_rev_tl_op",
+      "description": "mo_sin_old_rev_tl_op populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.mo_sin_rcnt_tl",
+      "description": "mo_sin_rcnt_tl populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.num_actv_rev_tl",
+      "description": "num_actv_rev_tl populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-14.pct_tl_nvr_dlq",
+      "description": "pct_tl_nvr_dlq populated for model-split loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% populated",
+      "expected": ">= 95%",
       "status": "PASS"
     }
   ]

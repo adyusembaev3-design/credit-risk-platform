@@ -88,13 +88,18 @@ def run_checks(con: duckdb.DuckDBPyConnection, min_rows: int = config.MIN_ROWS) 
             share <= config.MAX_OUT_OF_RANGE_SHARE,
             f"{share:.3%} out of range", f"<= {config.MAX_OUT_OF_RANGE_SHARE:.1%}"))
 
-    # DQ-07 Missingness per feature (warning only)
+    # DQ-07 Missingness per feature on the PD-model splits (warning only).
+    # 'history' loans predate the extended bureau fields, so they are excluded here.
     all_cols = [r[0] for r in con.execute(f"DESCRIBE {TABLE}").fetchall()]
     feature_cols = [c for c in all_cols if c not in config.REQUIRED_NOT_NULL]
+    model_splits = ", ".join(f"'{s}'" for s in config.MODEL_SPLITS)
     for col in feature_cols:
-        share = _one(con, f"SELECT avg(CASE WHEN {col} IS NULL THEN 1.0 ELSE 0.0 END) FROM {TABLE}")
+        if col in config.NULL_MEANS_NONE:
+            continue
+        share = _one(con, f"""SELECT coalesce(avg(CASE WHEN {col} IS NULL THEN 1.0 ELSE 0.0 END), 0)
+                              FROM {TABLE} WHERE split IN ({model_splits})""")
         results.append(CheckResult(
-            f"DQ-07.{col}", f"{col} null share is acceptable", "warn",
+            f"DQ-07.{col}", f"{col} null share is acceptable (model splits)", "warn",
             share <= config.MAX_NULL_SHARE, f"{share:.1%} null", f"<= {config.MAX_NULL_SHARE:.0%}"))
 
     # DQ-08 No leakage columns in the model table
@@ -122,7 +127,7 @@ def run_checks(con: duckdb.DuckDBPyConnection, min_rows: int = config.MIN_ROWS) 
         outside == 0, f"{outside:,} loans outside", "0 loans outside"))
 
     # DQ-11 Every split is populated
-    for split in ("train", "valid", "oot"):
+    for split in config.SPLIT_PERIODS:
         k = _one(con, f"SELECT count(*) FROM {TABLE} WHERE split = '{split}'")
         results.append(CheckResult(
             f"DQ-11.{split}", f"'{split}' split has loans", "fail",
@@ -152,6 +157,14 @@ def run_checks(con: duckdb.DuckDBPyConnection, min_rows: int = config.MIN_ROWS) 
     results.append(CheckResult(
         "DQ-13", "Installment reconciles to amount, rate and term (within 2%)", "warn",
         mismatch <= 0.01, f"{mismatch:.2%} mismatched", "<= 1%"))
+
+    # DQ-14 Extended bureau fields are reported for the PD-model loans
+    for col in config.BUREAU_FIELDS:
+        fill = _one(con, f"""SELECT coalesce(avg(CASE WHEN {col} IS NULL THEN 0.0 ELSE 1.0 END), 0)
+                             FROM {TABLE} WHERE split IN ({model_splits})""")
+        results.append(CheckResult(
+            f"DQ-14.{col}", f"{col} populated for model-split loans", "fail",
+            fill >= config.MIN_BUREAU_FILL, f"{fill:.1%} populated", f">= {config.MIN_BUREAU_FILL:.0%}"))
 
     return results
 

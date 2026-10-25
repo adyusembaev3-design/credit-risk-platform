@@ -48,6 +48,15 @@ def test_filters_and_leakage(sample, tmp_path):
     model = con.execute("SELECT count(*) FROM loans_model").fetchone()[0]
     assert model == stg > MIN_ROWS
 
+    # Date-based split: history before 2013, model splits after, bureau fields filled there
+    splits = dict(con.execute("""SELECT split, min(issue_date) < DATE '2013-01-01'
+                                 FROM loans_model GROUP BY split""").fetchall())
+    assert set(splits) == {"history", "train", "valid", "oot"}
+    assert splits["history"] and not splits["train"]
+    unfilled = con.execute("""SELECT count(*) FROM loans_model
+                              WHERE split <> 'history' AND bc_util IS NULL""").fetchone()[0]
+    assert unfilled == 0
+
     # Footer row dropped, rates parsed from both "13.5" and "13.5%"
     raw = con.execute("SELECT count(*) FROM raw_loans").fetchone()[0]
     staged = con.execute("SELECT count(*) FROM stg_loans").fetchone()[0]
@@ -56,10 +65,14 @@ def test_filters_and_leakage(sample, tmp_path):
 
 
 def test_duplicate_ids_stop_the_pipeline(sample, tmp_path):
-    # Copy the first data row onto the end: same loan_id twice
-    rows = list(csv.reader(sample.open()))
+    # Duplicate a loan that is IN the modeling sample (matured 36-month, final outcome),
+    # so the duplicate reaches the checks instead of being filtered out
+    rows = list(csv.DictReader(sample.open()))
+    target = next(r for r in rows if r["term"].strip() == "36 months"
+                  and 2007 <= int(r["issue_d"][-4:]) <= 2015
+                  and r["loan_status"] in ("Fully Paid", "Charged Off"))
     with sample.open("a", newline="") as f:
-        csv.writer(f).writerow(rows[1])
+        csv.DictWriter(f, fieldnames=list(rows[0])).writerow(target)
     code, _ = run(sample, tmp_path)
     assert code == 1
     report = (tmp_path / "reports" / "data_quality.md").read_text()

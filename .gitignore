@@ -13,3 +13,7 @@ __pycache__/
 # Secrets
 kaggle.json
 .env
+
+# Experiment tracking (local)
+mlruns/
+mlflow.db

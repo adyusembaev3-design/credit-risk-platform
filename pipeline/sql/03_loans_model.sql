@@ -1,17 +1,14 @@
 -- Stage 3: the modeling table.
 -- Only matured 36-month loans with a final outcome, only fields known at
--- application time, plus the target and the time-based split.
+-- application time, plus the target and the time-based split
+-- (history = pre-2013, kept for stress testing; train/valid/oot = PD model).
 CREATE OR REPLACE TABLE loans_model AS
 SELECT
     loan_id,
     issue_date,
     year(issue_date)                                             AS issue_year,
     CASE WHEN loan_status IN (__BAD_STATUSES__) THEN 1 ELSE 0 END AS is_default,
-    CASE
-        WHEN year(issue_date) BETWEEN __TRAIN_START__ AND __TRAIN_END__ THEN 'train'
-        WHEN year(issue_date) BETWEEN __VALID_START__ AND __VALID_END__ THEN 'valid'
-        WHEN year(issue_date) BETWEEN __OOT_START__ AND __OOT_END__ THEN 'oot'
-    END                                                          AS split,
+    __SPLIT_CASE__                                                AS split,
 
     -- Loan terms
     loan_amnt,
@@ -40,6 +37,21 @@ SELECT
     total_acc,
     mort_acc,
     pub_rec_bankruptcies,
+    mths_since_last_delinq,
+    mths_since_recent_inq,
+    acc_open_past_24mths,
+    num_tl_op_past_12m,
+    bc_util,
+    bc_open_to_buy,
+    percent_bc_gt_75,
+    tot_hi_cred_lim,
+    total_rev_hi_lim,
+    tot_cur_bal,
+    avg_cur_bal,
+    mo_sin_old_rev_tl_op,
+    mo_sin_rcnt_tl,
+    num_actv_rev_tl,
+    pct_tl_nvr_dlq,
     earliest_cr_line_date,
     date_diff('month', earliest_cr_line_date, issue_date) / 12.0 AS credit_history_years,
 

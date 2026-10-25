@@ -28,6 +28,12 @@ def _sql_list(values) -> str:
     return ", ".join("'" + v.replace("'", "''") + "'" for v in values)
 
 
+def split_case() -> str:
+    whens = " ".join(f"WHEN issue_date BETWEEN DATE '{lo}' AND DATE '{hi}' THEN '{name}'"
+                     for name, (lo, hi) in config.SPLIT_PERIODS.items())
+    return f"CASE {whens} END"
+
+
 def render(sql: str, raw_path: Path) -> str:
     replacements = {
         "__RAW_PATH__": str(raw_path).replace("'", "''"),
@@ -36,12 +42,7 @@ def render(sql: str, raw_path: Path) -> str:
         "__YEAR_MAX__": str(config.ISSUE_YEAR_MAX),
         "__BAD_STATUSES__": _sql_list(config.BAD_STATUSES),
         "__FINAL_STATUSES__": _sql_list(config.GOOD_STATUSES + config.BAD_STATUSES),
-        "__TRAIN_START__": str(config.TRAIN_YEARS[0]),
-        "__TRAIN_END__": str(config.TRAIN_YEARS[1]),
-        "__VALID_START__": str(config.VALID_YEARS[0]),
-        "__VALID_END__": str(config.VALID_YEARS[1]),
-        "__OOT_START__": str(config.OOT_YEARS[0]),
-        "__OOT_END__": str(config.OOT_YEARS[1]),
+        "__SPLIT_CASE__": split_case(),
     }
     for key, value in replacements.items():
         sql = sql.replace(key, value)
