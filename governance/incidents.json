@@ -1,0 +1,67 @@
+[
+  {
+    "id": "INC-001",
+    "opened": "2026-10-24",
+    "closed": "2026-10-25",
+    "severity": "high",
+    "control": "C-03",
+    "title": "Default model ranked risk worse than Lending Club's sub-grade",
+    "detection": "First out-of-time run: GBM AUC 0.647 vs. sub-grade benchmark 0.671.",
+    "root_cause": "Model trained on 2007-2012 loans (72K) using 16 basic bureau fields; the extended credit-bureau attributes are 0% populated before 2012, so the model saw only part of the credit file.",
+    "remediation": "Measured field coverage by vintage; moved to a date-based split starting 2013 (172K training loans), added 15 extended bureau attributes with monotone constraints, kept pre-2013 loans for stress testing, and added control DQ-14 (bureau fields >= 95% populated).",
+    "outcome": "GBM out-of-time AUC 0.688 vs. benchmark 0.679.",
+    "status": "closed"
+  },
+  {
+    "id": "INC-002",
+    "opened": "2026-10-24",
+    "closed": "2026-10-24",
+    "severity": "low",
+    "control": "C-01",
+    "title": "Duplicate-ID data-quality test did not exercise the control",
+    "detection": "Unit test expected the pipeline to stop on a duplicated loan, but it passed.",
+    "root_cause": "The test duplicated a loan that the sample filter removes (still current or 60-month), so the duplicate never reached check DQ-02.",
+    "remediation": "Test now duplicates a loan inside the modeling sample; DQ-02 correctly stops the pipeline.",
+    "outcome": "Control DQ-02 verified to block duplicates.",
+    "status": "closed"
+  },
+  {
+    "id": "INC-003",
+    "opened": "2026-10-26",
+    "closed": null,
+    "severity": "medium",
+    "control": "C-12",
+    "title": "Expected profit overstates realized profit",
+    "detection": "Policy backtest: expected $23.5M vs. realized $12.4M profit for approving the full 2015 book.",
+    "root_cause": "Loss predictions are calibrated (stress backtest 0.95); the gap is in interest collected. Prepayment and interest-yield factors estimated on older vintages overstate what 2015 borrowers paid.",
+    "remediation": "Partial: yield factors re-estimated on 2013-2014 vintages (expected $20.1M). Policy ranking held in every test, so decisions are unaffected. Next step: recalibrate yield on the most recent vintage and model prepayment by grade.",
+    "outcome": "Accepted with monitoring by control C-12 (currently WARN).",
+    "status": "open"
+  },
+  {
+    "id": "INC-004",
+    "opened": "2026-10-26",
+    "closed": "2026-10-26",
+    "severity": "high",
+    "control": "C-15",
+    "title": "10-K text extraction dropped most of each filing",
+    "detection": "Index held 247 filing chunks from about 21 MB of 10-Ks; expected well over 1,000.",
+    "root_cause": "HTML parser entered skip mode on a hidden inline-XBRL block and never left it, discarding the rest of the document.",
+    "remediation": "Removed the faulty hidden-block rule (XBRL headers are stripped separately) and added a regression test that text after a hidden block is kept.",
+    "outcome": "1,223 filing chunks indexed.",
+    "status": "closed"
+  },
+  {
+    "id": "INC-005",
+    "opened": "2026-10-26",
+    "closed": "2026-10-26",
+    "severity": "medium",
+    "control": "C-15",
+    "title": "Faithfulness judge under-reported supported claims",
+    "detection": "Numeric answers were all correct but judged only 33% faithful; filings answers were not judged at all.",
+    "root_cause": "Judge saw only the first 2,500 characters of each source, SQL results were shown without their query, the verdict parser failed on extra text, and bullet lists were split into broken claims.",
+    "remediation": "Judge sees 15,000 characters and the SQL behind each result; robust verdict parsing that records raw replies when unparseable; claim splitting per list item; tests for each case.",
+    "outcome": "Faithfulness 88-100% by category; remaining rejections reviewed and documented.",
+    "status": "closed"
+  }
+]

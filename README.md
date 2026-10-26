@@ -2,7 +2,7 @@
 
 End-to-end credit risk system on 2M+ public Lending Club loans: data pipeline, probability-of-default model, stress testing, portfolio optimization, real-time monitoring, model governance, and an AI risk analyst.
 
-**Status:** Modules 1–5 and 8 complete (data pipeline, default model, stress testing, policy optimization, champion/challenger test, AI risk analyst). Modules 6, 7, 9, 10 in progress.
+**Status:** Modules 1–5, 7 and 8 complete (data pipeline, default model, stress testing, policy optimization, champion/challenger test, governance, AI risk analyst). Modules 6, 9, 10 in progress.
 
 ## Module 1: Data pipeline and data quality
 
@@ -120,6 +120,29 @@ experiment/
   run.py     design, randomized readout, robustness, decision, report
 ```
 
+## Module 7: Model governance and controls
+
+A risk and controls register with 16 automated control tests that read the project's real outputs. Results: [`reports/controls_report.md`](reports/controls_report.md) · Model card: [`docs/model_card.md`](docs/model_card.md).
+
+| Area | Controls |
+| --- | --- |
+| Data | Data-quality gate, leakage block |
+| Model | Performance floor vs. benchmark, overfitting gap, stability (PSI), calibration, monotonicity perturbation test |
+| Compliance | Reason codes for every high-risk loan, geographic disparity review (4/5ths rule) |
+| Stress and decisions | Loss backtest, macro significance, policy limits, profit calibration, launch rule |
+| AI and technology | AI analyst evaluation thresholds, credential scan of tracked files |
+
+- Each control has a risk, threshold, owner and frequency, and returns PASS, WARN (review), FAIL or N/A.
+- A failing control opens an incident in [`governance/incidents.json`](governance/incidents.json) automatically. The log is seeded with the real issues found while building this project, each with root cause and remediation.
+- `python -m governance.run --strict` exits non-zero on any failure, so it can gate a CI pipeline.
+
+```
+governance/
+  controls.py      register and control tests
+  run.py           runs controls, updates incidents, writes report and model card
+  incidents.json   incident log
+```
+
 ## Module 8: AI risk analyst (Claude + RAG + evaluation)
 
 A Claude agent that answers risk questions and writes risk memos, citing every claim. Evaluation: [`reports/agent_eval.md`](reports/agent_eval.md).
@@ -177,6 +200,9 @@ python -m agent.ingest --email you@school.edu
 python -m agent.ask "How much would the 2015 book lose in a severe recession?"
 python -m agent.ask --memo "Risk review of the 2015 book and peer lenders"
 python -m agent.evaluate
+
+# 9. Governance: run all controls, update incidents, regenerate the model card (Module 7)
+python -m governance.run
 ```
 
 On a Mac, LightGBM needs OpenMP: `brew install libomp`.
