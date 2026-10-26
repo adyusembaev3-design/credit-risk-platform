@@ -30,7 +30,7 @@ COLUMNS = [
     "avg_cur_bal", "mo_sin_old_rev_tl_op", "mo_sin_rcnt_tl", "num_actv_rev_tl",
     "pct_tl_nvr_dlq", "mths_since_recent_inq",
     # post-issue fields that exist in the real file and must never reach the model
-    "total_pymnt", "recoveries", "last_pymnt_d",
+    "total_pymnt", "total_rec_prncp", "recoveries", "collection_recovery_fee", "last_pymnt_d",
 ]
 
 GRADES = {  # grade: (base interest rate, default probability, sampling weight)
@@ -45,6 +45,41 @@ STATES = ["PA", "NJ", "NY", "CA", "TX", "FL", "DE", "IL"]
 # Lending Club grew fast: most loans were issued 2013 onward
 YEARS = list(range(2007, 2019))
 YEAR_WEIGHTS = [1, 1, 1, 1, 2, 3, 6, 8, 10, 4, 4, 4]
+
+
+def synthetic_unrate() -> dict[tuple[int, int], float]:
+    """Monthly unemployment 2006-2021 with a 2008-09 recession, roughly like the US path."""
+    anchors = {2006: 4.6, 2007: 4.6, 2008: 5.8, 2009: 9.3, 2010: 9.6, 2011: 8.9, 2012: 8.1, 2013: 7.4,
+               2014: 6.2, 2015: 5.3, 2016: 4.9, 2017: 4.4, 2018: 3.9, 2019: 3.7, 2020: 3.6, 2021: 3.6}
+    years = sorted(anchors)
+    out = {}
+    for y in years:
+        nxt = anchors.get(y + 1, anchors[y])
+        for mth in range(1, 13):
+            out[(y, mth)] = round(anchors[y] + (nxt - anchors[y]) * (mth - 1) / 12, 2)
+    return out
+
+
+UNRATE = synthetic_unrate()
+
+
+def unemployment_change(year: int, month: int, horizon: int = 24) -> float:
+    future = []
+    y, mth = year, month
+    for _ in range(horizon):
+        mth += 1
+        if mth > 12:
+            y, mth = y + 1, 1
+        future.append(UNRATE[(y, mth)])
+    return sum(future) / horizon - UNRATE[(year, month)]
+
+
+def write_unrate_csv(path: Path) -> Path:
+    """FRED-format CSV of the synthetic series (observation_date, UNRATE)."""
+    lines = ["observation_date,UNRATE"] + [f"{y}-{mth:02d}-01,{v}" for (y, mth), v in sorted(UNRATE.items())]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n")
+    return path
 
 
 def installment(amount: float, rate: float, months: int) -> float:
@@ -64,16 +99,20 @@ def make_rows(n: int, seed: int = 7) -> list[dict]:
         inq = rng.randint(0, 4)
         acc_open_24 = rng.randint(0, 12)
         bc_util = rng.uniform(0, 110)
-        z = (-1.9 - 0.025 * (fico_low + 2 - 715) + 0.05 * (dti - 17) + 0.25 * (inq - 1)
-             + 0.08 * (acc_open_24 - 6) + 0.01 * (bc_util - 55))
+        year = rng.choices(YEARS, YEAR_WEIGHTS)[0]
+        month_idx = rng.randint(1, 12)
+        month = MONTHS[month_idx - 1]
+        z_borrower = (-1.9 - 0.025 * (fico_low + 2 - 715) + 0.05 * (dti - 17) + 0.25 * (inq - 1)
+                      + 0.08 * (acc_open_24 - 6) + 0.01 * (bc_util - 55))
+        # The economy the loan lives through also moves default (Module 3 recovers this)
+        z = z_borrower + 0.30 * unemployment_change(year, month_idx)
         p_default = 1 / (1 + math.exp(-z))
-        noisy = p_default * rng.uniform(0.7, 1.3)  # the lender sees risk imperfectly
+        # The lender prices the borrower, not the future economy, and sees risk imperfectly
+        noisy = 1 / (1 + math.exp(-z_borrower)) * rng.uniform(0.7, 1.3)
         grade = next((g for g, cut in GRADE_CUTS if noisy < cut), "G")
         rate = round(GRADES[grade][0] + rng.uniform(-1.5, 1.5), 2)
         term = 36 if rng.random() < 0.8 else 60
         amount = float(rng.randrange(1_000, 35_000, 25))
-        year = rng.choices(YEARS, YEAR_WEIGHTS)[0]
-        month = rng.choice(MONTHS)
 
         matured = term == 36 and year <= 2015
         if matured and rng.random() < 0.97:
@@ -136,7 +175,9 @@ def make_rows(n: int, seed: int = 7) -> list[dict]:
             "pub_rec_bankruptcies": str(rng.choice([0, 0, 0, 1])),
             **bureau,
             "total_pymnt": f"{amount * rng.uniform(0.3, 1.3):.2f}",
-            "recoveries": "0.0",
+            "total_rec_prncp": f"{amount * rng.uniform(0.05, 0.6):.2f}" if status == "Charged Off" else f"{amount:.2f}",
+            "recoveries": f"{amount * rng.uniform(0.0, 0.12):.2f}" if status == "Charged Off" else "0.0",
+            "collection_recovery_fee": f"{amount * rng.uniform(0.0, 0.02):.2f}" if status == "Charged Off" else "0.0",
             "last_pymnt_d": f"{rng.choice(MONTHS)}-2018",
         })
     return rows

@@ -81,3 +81,17 @@ One row per loan. Source: Lending Club accepted loans 2007–2018Q4 (Kaggle `wor
 | --- | --- | --- |
 | `loan_to_income` | double | `loan_amnt / annual_inc` |
 | `payment_to_income` | double | `installment × 12 / annual_inc` |
+
+# Data dictionary: `loan_outcomes`
+
+Realized results of each loan, used **only** to measure loss severity in Module 3. Kept in a separate table so post-issue payment data can never enter the default model (DQ-08).
+
+| Column | Type | Definition |
+| --- | --- | --- |
+| `loan_id` | text | Joins to `loans_model` |
+| `is_default` | int | Same target as `loans_model` |
+| `loan_amnt` | double | Original principal, USD |
+| `principal_repaid` | double | Principal repaid before charge-off, USD |
+| `recoveries` | double | Post-charge-off recoveries, USD |
+| `collection_fee` | double | Collection fees on recoveries, USD |
+| `loss_rate` | double | Defaults only: (principal − repaid − recoveries + fees) / principal, clipped to [0, 1] |

@@ -2,18 +2,19 @@
 
 End-to-end credit risk system on 2M+ public Lending Club loans: data pipeline, probability-of-default model, stress testing, portfolio optimization, real-time monitoring, model governance, and an AI risk analyst.
 
-**Status:** Modules 1–2 complete (data pipeline, default model). Modules 3–10 in progress.
+**Status:** Modules 1–3 complete (data pipeline, default model, stress testing). Modules 4–10 in progress.
 
 ## Module 1: Data pipeline and data quality
 
-Raw Lending Club CSV → typed staging table → modeling table → 14 automated data-quality controls → Parquet.
+Raw Lending Club CSV → typed staging table → modeling table → 17 automated data-quality controls → Parquet.
 
 ```
 pipeline/
   sql/01_raw_loans.sql     load the file as text (one bad value can't break the load)
   sql/02_stg_loans.sql     type and clean every column
   sql/03_loans_model.sql   sample, target, split, application-time features only
-  quality_checks.py        controls DQ-01 to DQ-14; any FAIL stops the pipeline
+  sql/04_loan_outcomes.sql realized losses, kept apart from the model table (loss severity only)
+  quality_checks.py        controls DQ-01 to DQ-17; any FAIL stops the pipeline
   build.py                 runs the stages and the checks
 docs/data_dictionary.md    every column in the modeling table
 reports/data_quality.md    latest check results (written on each run)
@@ -41,6 +42,9 @@ reports/data_quality.md    latest check results (written on each run)
 | DQ-12 | Default rate rises A → G | Warn |
 | DQ-13 | Installment reconciles to amount, rate, term | Warn |
 | DQ-14 | Extended bureau fields ≥ 95% populated (model splits) | Yes |
+| DQ-15 | Every model loan has an outcomes row | Yes |
+| DQ-16 | Loss rate computable for ≥ 99% of defaults | Yes |
+| DQ-17 | Average loss given default in 40–95% | Warn |
 
 ## Module 2: Probability-of-default model
 
@@ -65,6 +69,25 @@ models/
 
 Outputs: `reports/model_report.md`, `reports/figures/`, `reports/scorecard_points.csv`, `models/artifacts/`, and `data/processed/scored_loans.parquet` (PD, points and reason codes for every loan; input to Modules 3–4).
 
+## Module 3: Macroeconomic stress test
+
+How much would the 2015 book lose if unemployment rose? Results: [`reports/stress_report.md`](reports/stress_report.md).
+
+1. **Macro sensitivity.** Binomial GLM of realized default rate on the unemployment change each issue-month × FICO-band cohort lived through over its first 24 months (FRED `UNRATE`), with overdispersion-adjusted standard errors. The pre-2013 `history` loans supply the 2008–09 recession.
+2. **Loss given default.** Realized principal loss net of recoveries and collection fees, by grade.
+3. **Scenarios.** Each 2015 loan's model PD is shifted in log-odds by β × (scenario change − training-period change): Baseline 0, Adverse +2.5 pp, Severe +5 pp.
+4. **Expected loss** = PD × LGD × principal, by scenario and grade.
+5. **Backtest.** Expected loss under the unemployment path 2015 loans actually saw vs. their realized losses.
+
+All parameters are estimated on loans issued before 2015.
+
+```
+stress/
+  macro.py   FRED unemployment download/cache, unemployment change per loan
+  glm.py     binomial GLM (IRLS) with standard errors
+  run.py     sensitivity, LGD, scenarios, backtest, report; writes data/processed/stressed_book.parquet
+```
+
 ## Run it
 
 ```bash
@@ -83,6 +106,9 @@ python -m pipeline.build
 # 4. Train and validate the default models (Module 2)
 python -m models.train
 mlflow ui   # optional: browse the experiment at http://127.0.0.1:5000
+
+# 5. Stress test (Module 3; downloads unemployment from FRED on first run)
+python -m stress.run
 ```
 
 On a Mac, LightGBM needs OpenMP: `brew install libomp`.

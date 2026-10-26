@@ -1,6 +1,6 @@
 # Data quality report
 
-Run: 2026-10-25 04:05 UTC · Table: `loans_model` · **80 passed, 0 warnings, 0 failures**
+Run: 2026-10-25 04:15 UTC · Table: `loans_model` · **83 passed, 0 warnings, 0 failures**
 
 | ID | Check | Severity | Status | Observed | Expected |
 | --- | --- | --- | --- | --- | --- |
@@ -84,3 +84,6 @@ Run: 2026-10-25 04:05 UTC · Table: `loans_model` · **80 passed, 0 warnings, 0 
 | DQ-14.tot_cur_bal | tot_cur_bal populated for model-split loans | fail | PASS | 100.0% populated | >= 95% |
 | DQ-14.tot_hi_cred_lim | tot_hi_cred_lim populated for model-split loans | fail | PASS | 100.0% populated | >= 95% |
 | DQ-14.total_rev_hi_lim | total_rev_hi_lim populated for model-split loans | fail | PASS | 100.0% populated | >= 95% |
+| DQ-15 | Every model loan has an outcomes row | fail | PASS | 618,584 of 618,584 | all loans |
+| DQ-16 | Loss rate computable for defaulted loans | fail | PASS | 100.0% of defaults | >= 99% |
+| DQ-17 | Average loss given default is plausible | warn | PASS | 51.9% | 40% to 95% |

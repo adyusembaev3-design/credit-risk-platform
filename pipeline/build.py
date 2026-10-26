@@ -5,7 +5,7 @@ Usage:
     python -m pipeline.build --raw path/to/accepted_2007_to_2018Q4.csv.gz
     python -m pipeline.build --raw tests/sample.csv --min-rows 100 --db :memory:
 
-Stages: raw_loans -> stg_loans -> loans_model -> data-quality checks -> Parquet.
+Stages: raw_loans -> stg_loans -> loans_model -> loan_outcomes -> data-quality checks -> Parquet.
 Exits with code 1 if any hard data-quality check fails.
 """
 
@@ -21,7 +21,7 @@ import duckdb
 from pipeline import config
 from pipeline.quality_checks import run_checks, write_report
 
-STAGES = ("01_raw_loans.sql", "02_stg_loans.sql", "03_loans_model.sql")
+STAGES = ("01_raw_loans.sql", "02_stg_loans.sql", "03_loans_model.sql", "04_loan_outcomes.sql")
 
 
 def _sql_list(values) -> str:
@@ -86,9 +86,10 @@ def build(raw_path: Path, db_path: str, min_rows: int, out_dir: Path,
         return 1
 
     processed_dir.mkdir(parents=True, exist_ok=True)
-    out = processed_dir / "loans_model.parquet"
-    con.execute(f"COPY loans_model TO '{out.as_posix()}' (FORMAT PARQUET)")
-    print(f"Wrote {out}")
+    for table in ("loans_model", "loan_outcomes"):
+        out = processed_dir / f"{table}.parquet"
+        con.execute(f"COPY {table} TO '{out.as_posix()}' (FORMAT PARQUET)")
+        print(f"Wrote {out}")
     con.close()
     return 0
 

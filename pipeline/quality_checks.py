@@ -166,6 +166,23 @@ def run_checks(con: duckdb.DuckDBPyConnection, min_rows: int = config.MIN_ROWS) 
             f"DQ-14.{col}", f"{col} populated for model-split loans", "fail",
             fill >= config.MIN_BUREAU_FILL, f"{fill:.1%} populated", f">= {config.MIN_BUREAU_FILL:.0%}"))
 
+    # DQ-15 Loss severity is measurable for defaulted loans (outcomes table)
+    has_outcomes = _one(con, "SELECT count(*) FROM information_schema.tables WHERE table_name = 'loan_outcomes'")
+    if has_outcomes:
+        n_out, n_bad, n_loss, avg_loss = con.execute("""
+            SELECT count(*), sum(is_default), count(loss_rate), avg(loss_rate) FROM loan_outcomes""").fetchone()
+        results.append(CheckResult(
+            "DQ-15", "Every model loan has an outcomes row", "fail",
+            n_out == n, f"{n_out:,} of {n:,}", "all loans"))
+        share = n_loss / n_bad if n_bad else 0.0
+        results.append(CheckResult(
+            "DQ-16", "Loss rate computable for defaulted loans", "fail",
+            share >= 0.99, f"{share:.1%} of defaults", ">= 99%"))
+        results.append(CheckResult(
+            "DQ-17", "Average loss given default is plausible", "warn",
+            avg_loss is not None and 0.4 <= avg_loss <= 0.95,
+            f"{avg_loss:.1%}" if avg_loss is not None else "n/a", "40% to 95%"))
+
     return results
 
 

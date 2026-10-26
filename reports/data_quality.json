@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-10-25 04:05 UTC",
+  "run_at": "2026-10-25 04:15 UTC",
   "results": [
     {
       "check_id": "DQ-01",
@@ -719,6 +719,33 @@
       "passed": true,
       "observed": "100.0% populated",
       "expected": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-15",
+      "description": "Every model loan has an outcomes row",
+      "severity": "fail",
+      "passed": true,
+      "observed": "618,584 of 618,584",
+      "expected": "all loans",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-16",
+      "description": "Loss rate computable for defaulted loans",
+      "severity": "fail",
+      "passed": true,
+      "observed": "100.0% of defaults",
+      "expected": ">= 99%",
+      "status": "PASS"
+    },
+    {
+      "check_id": "DQ-17",
+      "description": "Average loss given default is plausible",
+      "severity": "warn",
+      "passed": true,
+      "observed": "51.9%",
+      "expected": "40% to 95%",
       "status": "PASS"
     }
   ]
