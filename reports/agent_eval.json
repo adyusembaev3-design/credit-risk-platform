@@ -1,0 +1,590 @@
+[
+  {
+    "category":"numeric",
+    "question":"What is the GBM's out-of-time AUC?",
+    "final":"0.688",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":6808,
+    "output_tokens":308,
+    "seconds":3.7,
+    "correct":true,
+    "expected":0.6883853303,
+    "judged_claims":3,
+    "supported_claims":2,
+    "unsupported":[
+      {
+        "claim":"It was measured on 283,026 loans issued Jan 2015\u2013Dec 2015.",
+        "citation":"R:model_metrics",
+        "supported":false
+      }
+    ],
+    "answer":"The GBM's out-of-time AUC is 0.688 (0.6884 before rounding). It was measured on 283,026 loans issued Jan 2015\u2013Dec 2015. [R:model_metrics] [project\/model_report#probability-of-default-model-report]\n\nFor comparison, the WOE scorecard scored 0.675 and Lending Club's sub-grade scored 0.679 on the same test. [project\/model_report#probability-of-default-model-report]\n\nFINAL: 0.688",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What out-of-time AUC does Lending Club's sub-grade benchmark reach?",
+    "final":"0.679",
+    "tool_calls":2,
+    "citations":3,
+    "invalid_citations":0,
+    "input_tokens":7413,
+    "output_tokens":295,
+    "seconds":2.8,
+    "correct":true,
+    "expected":0.6786579456,
+    "judged_claims":4,
+    "supported_claims":3,
+    "unsupported":[
+      {
+        "claim":"The out-of-time test covers 283,026 loans issued January\u2013December 2015.",
+        "citation":"project\/model_report#performance",
+        "supported":false
+      }
+    ],
+    "answer":"Lending Club's sub-grade benchmark has an out-of-time AUC of about 0.679 (0.6787 unrounded). [R:model_metrics] The out-of-time test covers 283,026 loans issued January\u2013December 2015. [project\/model_report#performance] [project\/model_report#probability-of-default-model-report]\n\nFor comparison, the GBM scores 0.688 and the WOE scorecard 0.675 on the same test. [R:model_metrics]\n\nFINAL: 0.679",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What is the WOE scorecard's out-of-time KS statistic?",
+    "final":"0.254",
+    "tool_calls":1,
+    "citations":1,
+    "invalid_citations":0,
+    "input_tokens":4888,
+    "output_tokens":351,
+    "seconds":4.0,
+    "correct":true,
+    "expected":0.254043991,
+    "judged_claims":3,
+    "supported_claims":3,
+    "unsupported":[
+
+    ],
+    "answer":"The WOE scorecard's out-of-time (OOT) KS is 0.254. That is 0.2540 before rounding, on 283,026 loans in the OOT split. The OOT default rate is 14.9% [R:model_metrics].\n\nThe OOT KS is higher than the scorecard's validation KS of 0.245 and its training KS of 0.241 [R:model_metrics]. The GBM scores 0.275 on OOT KS and the sub-grade benchmark scores 0.262, so the scorecard is the lowest of the three [R:model_metrics].\n\nFINAL: 0.254",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What is the population stability index of the GBM between training and out-of-time?",
+    "final":"0.0138",
+    "tool_calls":2,
+    "citations":3,
+    "invalid_citations":0,
+    "input_tokens":6728,
+    "output_tokens":401,
+    "seconds":3.8,
+    "correct":true,
+    "expected":0.013794387,
+    "judged_claims":6,
+    "supported_claims":6,
+    "unsupported":[
+
+    ],
+    "answer":"The GBM's population stability index (PSI), computed on predicted PD between training and out-of-time, is 0.0138. [R:model_metrics] The report rounds this to 0.014. [project\/model_report#stability]\n\n- **Rating:** The report treats a PSI below 0.10 as stable, so the GBM is stable on this measure. [project\/model_report#stability]\n- **Training period:** Jan 2013\u2013Jun 2014, 172,377 loans. [project\/model_report#probability-of-default-model-report]\n- **Out-of-time period:** Jan 2015\u2013Dec 2015, 283,026 loans. [project\/model_report#probability-of-default-model-report]\n- **Comparison:** The WOE scorecard's PSI is lower, at 0.0045. [R:model_metrics]\n\nFINAL: 0.0138",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What is the expected loss on the 2015 book under the severe scenario, in $ millions?",
+    "final":"474.0",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":4526,
+    "output_tokens":369,
+    "seconds":4.3,
+    "correct":true,
+    "expected":473.9672781071,
+    "judged_claims":6,
+    "supported_claims":6,
+    "unsupported":[
+
+    ],
+    "answer":"The expected loss on the 2015 book under the severe scenario is about **$474.0 million**. The stress results give $473.97M [R:stress_results]. A direct sum over the stressed book gives the same figure, $473.97M [Q1].\n\n- **Loss rate:** The severe-scenario loss rate is 13.08% [R:stress_results].\n- **Mean PD:** The mean PD is 26.7% [R:stress_results].\n- **Book size:** The stressed book has 283,026 loans and $3,624.3M of exposure [Q1].\n- **Comparison with baseline:** The baseline expected loss is $274.5M [R:stress_results].\n\nFINAL: 474.0",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What is the expected loss rate under the adverse scenario?",
+    "final":"10.07%",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":7082,
+    "output_tokens":327,
+    "seconds":3.1,
+    "correct":true,
+    "expected":0.1006628137,
+    "judged_claims":5,
+    "supported_claims":4,
+    "unsupported":[
+      {
+        "claim":"Expected loss is $364.8M on the 2015 book.",
+        "citation":"R:stress_results",
+        "supported":false
+      }
+    ],
+    "answer":"Under the adverse scenario, the expected loss rate is 10.07% of exposure, or about 10.1%. [R:stress_results] The adverse scenario assumes unemployment rises 2.5 percentage points on average over the next 24 months. [project\/stress_report#scenarios]\n\n- Expected loss is $364.8M on the 2015 book. [R:stress_results]\n- Mean PD is 20.58%. [R:stress_results]\n- For comparison, the baseline loss rate is 7.57% and the severe loss rate is 13.08%. [R:stress_results]\n\nFINAL: 10.07%",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"By what factor does a 1-point rise in unemployment multiply default odds?",
+    "final":"1.16",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":5973,
+    "output_tokens":414,
+    "seconds":3.4,
+    "correct":true,
+    "expected":1.1619231757,
+    "judged_claims":5,
+    "supported_claims":5,
+    "unsupported":[
+
+    ],
+    "answer":"A 1-point rise in unemployment multiplies default odds by about 1.16. [R:stress_results]\n\n- The model is a binomial GLM of default on the 24-month change in unemployment, with FICO-band intercepts. The coefficient is 0.150 per percentage point, which gives an odds multiplier of 1.16. [project\/stress_report#macro-sensitivity]\n- It was estimated from 335,558 loans issued Jun 2007\u2013Dec 2014, grouped into 451 issue-month \u00d7 FICO-band cohorts. [R:stress_results]\n- The standard error is 0.016 after widening for overdispersion. [project\/stress_report#macro-sensitivity]\n- Unemployment changes in the estimation data ran from -1.3 to +3.3 pp. [project\/stress_report#macro-sensitivity]\n\nFINAL: 1.16",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What was the ratio of expected to actual losses in the stress-test backtest?",
+    "final":"0.95",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":5788,
+    "output_tokens":320,
+    "seconds":3.5,
+    "correct":true,
+    "expected":0.9497344047,
+    "judged_claims":3,
+    "supported_claims":3,
+    "unsupported":[
+
+    ],
+    "answer":"In the stress-test backtest, the ratio of expected to actual losses was 0.95, so the model slightly under-predicted losses.\n\n- The backtest used the unemployment path that 2015 loans actually experienced. That path was an average change of \u22120.45 pp over their first 24 months. [project\/stress_report#backtest]\n- Under that path the model expected about $260.2M of losses. Actual losses were about $274.0M. The ratio is 0.9497. [R:stress_results]\n- The ratio is expected divided by actual. [R:stress_results]\n\nFINAL: 0.95",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What is the average loss given default used in the stress test?",
+    "final":"0.5166",
+    "tool_calls":3,
+    "citations":3,
+    "invalid_citations":0,
+    "input_tokens":7056,
+    "output_tokens":625,
+    "seconds":5.1,
+    "correct":true,
+    "expected":0.5166497157,
+    "judged_claims":5,
+    "supported_claims":5,
+    "unsupported":[
+
+    ],
+    "answer":"The stress test uses an overall average loss given default (LGD) of **51.7%**. [R:stress_results]\n\n- **Basis:** This is the realized loss of principal on defaulted loans issued before 2015, net of recoveries and collection fees. [project\/stress_report#loss-given-default]\n- **Held constant:** LGD stays at these through-the-cycle averages in every scenario. [project\/stress_report#loss-given-default]\n- **By grade:** LGD rises from 46.6% for grade A to 61.2% for grade G. [project\/stress_report#loss-given-default]\n- **Simple average on the 2015 book:** The unweighted mean of the per-loan LGD across the 283,026 loans in `stressed_book` is about 50.2%. [Q1] This is lower because the 2015 book is weighted toward lower-risk grades. It is not the headline figure.\n\nFINAL: 0.5166",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What realized profit did the optimized credit policy earn, in $ millions?",
+    "final":"33.5",
+    "tool_calls":1,
+    "citations":1,
+    "invalid_citations":0,
+    "input_tokens":6111,
+    "output_tokens":418,
+    "seconds":4.4,
+    "correct":true,
+    "expected":33.5018797302,
+    "judged_claims":5,
+    "supported_claims":5,
+    "unsupported":[
+
+    ],
+    "answer":"The optimized credit policy earned a realized profit of about $33.5 million. [R:optimization_results]\n\n- **Policy size:** It approves 162,188 loans, which is 59.6% of volume, on $2,158 million of exposure. [R:optimization_results]\n- **Constraints:** Its severe-loss rate is 9.83%, and it meets all the constraints. [R:optimization_results]\n- **Expected profit:** Expected profit was higher, at $61.2 million. [R:optimization_results]\n- **Comparison:** Approving all loans realized $12.4 million. Approving grades A\u2013D only realized $19.2 million. [R:optimization_results]\n\nThe results file does not state the period these figures cover, so I have not assigned one.\n\nFINAL: 33.5",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What realized profit would approving every 2015 loan have earned, in $ millions?",
+    "final":"12.37",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":6374,
+    "output_tokens":303,
+    "seconds":6.9,
+    "correct":true,
+    "expected":12.3710292192,
+    "judged_claims":3,
+    "supported_claims":3,
+    "unsupported":[
+
+    ],
+    "answer":"Approving every 2015 loan would have earned a realized profit of about $12.37 million. This covers 283,026 loans with $3,624.3 million of exposure. [R:optimization_results] A direct sum over the loan-level policy data gives the same figure. [Q1]\n\nThe model expected $20.05 million of profit on the same book, so realized profit came in below expectation. [R:optimization_results]\n\nFINAL: 12.37",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What share of the 2015 book (by principal) does the optimized policy fund?",
+    "final":"0.5955",
+    "tool_calls":4,
+    "citations":4,
+    "invalid_citations":0,
+    "input_tokens":11649,
+    "output_tokens":731,
+    "seconds":6.8,
+    "correct":true,
+    "expected":0.595518755,
+    "judged_claims":5,
+    "supported_claims":4,
+    "unsupported":[
+      {
+        "claim":"It also matches the 2015 stressed book.",
+        "citation":"Q3",
+        "supported":false
+      }
+    ],
+    "answer":"The optimized policy funds about **59.6% of the 2015 book by principal**.\n\n- It approves 162,188 loans with $2,158.3M of exposure. The \"Approve all\" policy has $3,624.3M of exposure. [R:optimization_results]\n- I summed approved and total principal in `policy_loans` as a check. The sums were $2,158,339,100 approved out of $3,624,300,800 in total, which is also 59.6%. [Q1]\n- The total matches the 2015 out-of-time book (283,026 loans, issued January\u2013December 2015, $3,624,300,800). [Q2] It also matches the 2015 stressed book. [Q3]\n- That share clears the policy's minimum volume-share constraint of 0.5. [R:optimization_results]\n\nFINAL: 0.5955",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"In the champion\/challenger experiment, what was the profit uplift per applicant in dollars?",
+    "final":"84.12",
+    "tool_calls":2,
+    "citations":4,
+    "invalid_citations":0,
+    "input_tokens":5201,
+    "output_tokens":422,
+    "seconds":3.7,
+    "correct":true,
+    "expected":84.115953412,
+    "judged_claims":7,
+    "supported_claims":7,
+    "unsupported":[
+
+    ],
+    "answer":"The challenger earned **$84.12 more profit per applicant** than the champion. The 95% CI is $62.46 to $105.77 (p = 2.7e-14). [R:experiment_results][project\/experiment_report#readout]\n\n- **Per-applicant profit:** the champion earned $36.36 and the challenger $120.48. [project\/experiment_report#readout]\n- **Test setup:** this was a simulated test on the 2015 book, with 141,513 applicants in each arm. [project\/experiment_report#champion-challenger-experiment-readout][project\/experiment_report#readout]\n- **Design expectation:** before the test, the challenger was expected to add $145.34 per applicant. The realized uplift came in below that. [project\/experiment_report#design-before-outcomes]\n- **Decision:** launch the challenger. [R:experiment_results]\n\nFINAL: 84.12",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"How many applicants per arm did the experiment's power calculation require?",
+    "final":"7035",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":5250,
+    "output_tokens":308,
+    "seconds":4.1,
+    "correct":true,
+    "expected":7035.0,
+    "judged_claims":3,
+    "supported_claims":2,
+    "unsupported":[
+      {
+        "claim":"The 2015 book had 141,513 applicants available per arm, far more than the 7,035 required.",
+        "citation":"project\/experiment_report#design-before-outcomes",
+        "supported":false
+      }
+    ],
+    "answer":"The power calculation required 7,035 applicants per arm. [R:experiment_results] It was set to detect an expected uplift of $145.34 per applicant with 80% power at \u03b1 = 0.05. It assumed a per-applicant profit SD of $3,077, taken from realized profit on 2013\u20132014 loans. [project\/experiment_report#design-before-outcomes]\n\nThe 2015 book had 141,513 applicants available per arm, far more than the 7,035 required. [project\/experiment_report#design-before-outcomes]\n\nFINAL: 7035",
+    "lenders_cited":null
+  },
+  {
+    "category":"numeric",
+    "question":"What was the default rate of loans funded by the challenger policy?",
+    "final":"12.13%",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":5714,
+    "output_tokens":273,
+    "seconds":2.8,
+    "correct":true,
+    "expected":0.1213366976,
+    "judged_claims":3,
+    "supported_claims":3,
+    "unsupported":[
+
+    ],
+    "answer":"The challenger policy's funded loans defaulted at 12.13% in the simulated 2015 champion\/challenger test. The champion's funded loans defaulted at 14.96%, a gap of 2.82 percentage points [R:experiment_results][project\/experiment_report#readout]. The challenger funded 57.4% of applicants, and each arm had 141,513 applicants [project\/experiment_report#readout].\n\nFINAL: 12.13%",
+    "lenders_cited":null
+  },
+  {
+    "category":"sql",
+    "question":"How many loans of grade C are in the 2015 book?",
+    "final":"77423",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":3468,
+    "output_tokens":282,
+    "seconds":2.5,
+    "correct":true,
+    "expected":77423.0,
+    "judged_claims":2,
+    "supported_claims":1,
+    "unsupported":[
+      {
+        "claim":"The `stressed_book` table, which holds the 2015 book, also has 77,423 grade C loans.",
+        "citation":"Q2",
+        "supported":false
+      }
+    ],
+    "answer":"The 2015 book has 77,423 grade C loans. Both tables give the same count. The `scored_loans` table has 77,423 grade C loans issued between 2015-01-01 and 2015-12-01 [Q1]. The `stressed_book` table, which holds the 2015 book, also has 77,423 grade C loans [Q2].\n\nFINAL: 77423",
+    "lenders_cited":null
+  },
+  {
+    "category":"sql",
+    "question":"What is the average predicted default probability (pd_gbm) of grade E loans in the 2015 book?",
+    "final":"0.2537",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":3659,
+    "output_tokens":299,
+    "seconds":3.3,
+    "correct":true,
+    "expected":0.2537217759,
+    "judged_claims":2,
+    "supported_claims":2,
+    "unsupported":[
+
+    ],
+    "answer":"Grade E loans in the 2015 book have an average predicted default probability (pd_gbm) of about 25.4% (0.2537). This covers 9,443 loans in the stressed_book table [Q1]. The same figure comes from the out-of-time split of scored_loans, which has the same 9,443 grade E loans issued January to December 2015 [Q2].\n\nFINAL: 0.2537",
+    "lenders_cited":null
+  },
+  {
+    "category":"sql",
+    "question":"What is the realized default rate of grade B loans in the 2015 book?",
+    "final":"11.90%",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":3551,
+    "output_tokens":310,
+    "seconds":2.8,
+    "correct":true,
+    "expected":0.1189533933,
+    "judged_claims":2,
+    "supported_claims":2,
+    "unsupported":[
+
+    ],
+    "answer":"Grade B loans in the 2015 book had a realized default rate of 11.90%. That is 10,911 defaults out of 91,725 loans. [Q1]\n\nThe same figure comes from the scored loans table. It covers B loans issued from January 2015 to December 2015, all in the out-of-time test split. [Q2]\n\nFINAL: 11.90%",
+    "lenders_cited":null
+  },
+  {
+    "category":"sql",
+    "question":"What is the total principal of the 2015 book in $ millions?",
+    "final":"3624.3",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":3610,
+    "output_tokens":368,
+    "seconds":4.9,
+    "correct":true,
+    "expected":3624.3008,
+    "judged_claims":2,
+    "supported_claims":2,
+    "unsupported":[
+
+    ],
+    "answer":"The 2015 book has total principal of about $3,624.3 million. That is the sum of `loan_amnt` over 283,026 loans in the stressed book [Q1].\n\nThe out-of-time split in the scored loans table gives the same total. It has 283,026 loans issued from 2015-01-01 to 2015-12-01 [Q2].\n\nThe data covers only 36-month loans that reached a final outcome, so this total excludes 60-month loans and any loans still outstanding.\n\nFINAL: 3624.3",
+    "lenders_cited":null
+  },
+  {
+    "category":"abstain",
+    "question":"What was the default rate of 60-month loans in the portfolio?",
+    "final":"NOT_FOUND",
+    "tool_calls":2,
+    "citations":3,
+    "invalid_citations":0,
+    "input_tokens":5889,
+    "output_tokens":325,
+    "seconds":3.3,
+    "correct":true,
+    "expected":null,
+    "judged_claims":3,
+    "supported_claims":3,
+    "unsupported":[
+
+    ],
+    "answer":"The portfolio has no 60-month loans, so there is no default rate to report for them. It only contains 36-month loans issued 2007\u20132015 that reached a final outcome [project\/data_dictionary#data-dictionary-loans-model]. The pipeline README gives the same sample definition [project\/README#module-1-data-pipeline-and-data-quality]. The loan table has no term column to filter on [Q1].\n\nFINAL: NOT_FOUND",
+    "lenders_cited":null
+  },
+  {
+    "category":"abstain",
+    "question":"What AUC did the GBM reach on loans issued in 2017?",
+    "final":"NOT_FOUND",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":5239,
+    "output_tokens":391,
+    "seconds":4.2,
+    "correct":true,
+    "expected":null,
+    "judged_claims":2,
+    "supported_claims":2,
+    "unsupported":[
+
+    ],
+    "answer":"I can't give a 2017 AUC. The data doesn't cover loans issued in 2017.\n\n- The scored loan table runs from January 2013 to December 2015. Its splits are train (2013-01 to 2014-06), valid (2014-07 to 2014-12) and out-of-time (2015). [Q1]\n- The GBM's AUC was 0.745 on train, 0.685 on valid and 0.688 on the 2015 out-of-time book, which has 283,026 loans. [R:model_metrics]\n\nThe closest figure is the 2015 out-of-time AUC of 0.688. It is not a 2017 result.\n\nFINAL: NOT_FOUND",
+    "lenders_cited":null
+  },
+  {
+    "category":"abstain",
+    "question":"How many loans did the portfolio originate in Canada?",
+    "final":"NOT_FOUND",
+    "tool_calls":2,
+    "citations":2,
+    "invalid_citations":0,
+    "input_tokens":5961,
+    "output_tokens":385,
+    "seconds":6.3,
+    "correct":true,
+    "expected":null,
+    "judged_claims":2,
+    "supported_claims":2,
+    "unsupported":[
+
+    ],
+    "answer":"The tools don't have the answer. The portfolio is Lending Club accepted loans from the US consumer platform. The data dictionary describes the source as Lending Club accepted loans 2007\u20132018Q4, limited to 36-month loans with a final outcome [project\/data_dictionary#data-dictionary-loans-model]. The loan table I could query covers 546,018 loans issued 2013-01 to 2015-12 [Q1]. Neither source has a country field. I found no loans identified as Canadian, and I can't give a Canadian count without guessing.\n\nFINAL: NOT_FOUND",
+    "lenders_cited":null
+  },
+  {
+    "category":"abstain",
+    "question":"What will the US unemployment rate be in 2027?",
+    "final":"NOT_FOUND",
+    "tool_calls":2,
+    "citations":3,
+    "invalid_citations":0,
+    "input_tokens":9401,
+    "output_tokens":515,
+    "seconds":4.7,
+    "correct":true,
+    "expected":null,
+    "judged_claims":3,
+    "supported_claims":3,
+    "unsupported":[
+
+    ],
+    "answer":"I can't give you a forecast of the 2027 US unemployment rate, because none of the tools contain one.\n\n- **Peer 10-Ks:** They give only near-term assumptions for 2026. Synchrony assumes a US unemployment rate of 4.8% in Q4 2026 [SYF-10K-2026#0089]. Capital One assumes about 4.5% by Q4 2026 [COF-10K-2026#0173]. Neither gives a 2027 figure.\n- **Project stress test:** It uses hypothetical unemployment changes over 24 months relative to today. These are 0 pp for Baseline, +2.5 pp for Adverse and +5.0 pp for Severe [project\/stress_report#scenarios]. They are scenario shifts, not forecasts of the rate level, and they aren't tied to a calendar year.\n\nFINAL: NOT_FOUND",
+    "lenders_cited":null
+  },
+  {
+    "category":"filings",
+    "question":"How do consumer lenders in the peer filings describe the effect of unemployment on credit losses?",
+    "final":null,
+    "tool_calls":5,
+    "citations":9,
+    "invalid_citations":0,
+    "input_tokens":26085,
+    "output_tokens":1655,
+    "seconds":11.9,
+    "correct":true,
+    "expected":null,
+    "judged_claims":12,
+    "supported_claims":11,
+    "unsupported":[
+      {
+        "claim":"It mentions national unemployment rates only as a factor in the timing of its marketing spend, not in its loss estimates.",
+        "citation":"ATLC-10K-2026#0109",
+        "supported":false
+      }
+    ],
+    "answer":"The peer filings treat unemployment as a main macroeconomic input to expected credit losses and as a driver of delinquencies and charge-offs. They do not give a numeric sensitivity of losses to unemployment. All four filings were filed in 2026, and the allowance figures below are as of Dec 31, 2025.\n\n**Capital One (COF)**\n- Its macroeconomic forecast is \"sensitive to certain variables, such as the U.S. Unemployment Rate\" and real GDP growth. The Dec 31, 2025 allowance assumes unemployment of about 4.5% by Q4 2026. [COF-10K-2026#0173]\n- Elevated unemployment rates are named as a leading indicator of rising credit losses that may require a larger allowance. [COF-10K-2026#0064]\n- Customers are historically more likely to miss payments during downturns, recessions or periods of high unemployment. [COF-10K-2026#0064]\n- Unemployment is also one of several portfolio indicators in its loss forecast models. [COF-10K-2026#0287]\n\n**Synchrony (SYF)**\n- Its loss projections use a third-party macroeconomic forecast with \"unemployment and certain income measures as primary variables.\" The Dec 31, 2025 allowance assumes a U.S. unemployment rate of 4.8% in Q4 2026. [SYF-10K-2026#0089]\n- Unemployment is listed among the economic factors that affect consumer spending, payment behavior and demand for credit. [SYF-10K-2026#0095]\n- Adverse economic conditions hurt customers' ability and willingness to pay, which raises delinquencies, bankruptcies, charge-offs and allowances. [SYF-10K-2026#0095]\n- Synchrony's net charge-off rate was 11.26% in 2009, during the financial crisis, versus 5.65% in 2025. [SYF-10K-2026#0095] This comparison reflects the broader economy, not unemployment alone.\n\n**LendingClub (LC)**\n- Its qualitative allowance is \"primarily based on macroeconomic unemployment forecast information\" from an external economist, combined with management judgment. [LC-10K-2026#0151]\n- Its consumer model considers the unemployment rate, unemployment insurance claims, GDP, housing prices and retail sales. [LC-10K-2026#0168]\n\n**Atlanticus (ATLC)**\n- Its filing is less explicit on credit losses. It cites \"the effects of changes in the economy on consumers such as inflation or other macroeconomic changes\" as an allowance input. [ATLC-10K-2026#0153]\n- It mentions national unemployment rates only as a factor in the timing of its marketing spend, not in its loss estimates. [ATLC-10K-2026#0109]",
+    "lenders_cited":4.0
+  },
+  {
+    "category":"filings",
+    "question":"How do the peer lenders estimate their allowance for credit losses?",
+    "final":null,
+    "tool_calls":4,
+    "citations":10,
+    "invalid_citations":0,
+    "input_tokens":16262,
+    "output_tokens":1846,
+    "seconds":13.3,
+    "correct":true,
+    "expected":null,
+    "judged_claims":12,
+    "supported_claims":12,
+    "unsupported":[
+
+    ],
+    "answer":"All four peers use an expected-credit-loss approach for loans at amortized cost. The details differ. I did not find a full methodology description for Atlanticus.\n\n**Atlanticus (ATLC)**\n- Atlanticus sets its allowance as an estimate of expected credit losses on loans, interest and fees receivable that it does not report at fair value. It bases this on loan performance, delinquency data, charge-off data and economic trends. [ATLC-10K-2026#0152]\n- It looks at some or all of these attributes for each receivable pool: historical loss rates, delinquency and roll-rate trends, economic effects on consumers, underwriting changes and estimated recoveries. [ATLC-10K-2026#0059]\n- Its loans at amortized cost are Auto Finance loans. They are grouped into pools by common characteristics such as contract or acquisition channel. [ATLC-10K-2026#0152]\n- Its larger Credit as a Service (CaaS) loans are carried at fair value, not under an allowance. They use internally developed discounted cash flow models. Credit losses are one input, alongside payment rates, yields, servicing cost and the discount rate. [ATLC-10K-2026#0175]\n\n**Synchrony (SYF)**\n- Synchrony's allowance is its best estimate of lifetime expected credit losses under CECL. It models losses on existing balances for pools of loans with similar risk, using historical experience, current conditions and macroeconomic expectations. [SYF-10K-2026#0088]\n- The forecast period is 12 months. After that, losses revert to historical information. [SYF-10K-2026#0088]\n- In Q1 2025 it moved from an enhanced migration (delinquency roll) analysis to a statistical, account-level probability of default and exposure at default model. [SYF-10K-2026#0087]\n- The reversion period is still 6 months, but it is now straight-line instead of weighted. [SYF-10K-2026#0087]\n- It adds a qualitative assessment of risks the models don't capture. [SYF-10K-2026#0088]\n- The allowance was $10.4 billion at December 31, 2025. [SYF-10K-2026#0087]\n\n**Capital One (COF)**\n- Capital One's allowance is management's current estimate of expected credit losses over the contractual terms of its loans held for investment. Contractual terms are adjusted for expected prepayments. [COF-10K-2026#0283]\n- It measures the allowance quarterly, using historical experience, current conditions and reasonable and supportable forecasts. [COF-10K-2026#0283]\n- Loans with similar risk characteristics are pooled. Loans that don't fit a pool are measured individually. [COF-10K-2026#0283]\n- Expected recoveries are included in the allowance. [COF-10K-2026#0283]\n- For credit card partnerships with loss sharing, expected partner reimbursements are netted against the allowance. [COF-10K-2026#0334]\n- The allowance was $23.4 billion at December 31, 2025. [COF-10K-2026#0172]\n\n**LendingClub (LC)**\n- The filing is labeled \"Happen, Inc.\" in the tool, but its text refers to LendingClub Corporation. [LC-10K-2026#0042]\n- Under CECL, LendingClub holds an allowance for management's best estimate of expected lifetime losses. This requires judgments about future economic conditions. [LC-10K-2026#0042]\n- Since January 1, 2026, it has used the fair value option instead of CECL for newly originated held-for-investment loans. [LC-10K-2026#0165]\n- Most of the existing portfolio was originated earlier and remains under CECL. [LC-10K-2026#0042]",
+    "lenders_cited":4.0
+  },
+  {
+    "category":"filings",
+    "question":"What risks do the peer lenders describe about lending to near-prime or subprime borrowers?",
+    "final":null,
+    "tool_calls":4,
+    "citations":10,
+    "invalid_citations":0,
+    "input_tokens":18957,
+    "output_tokens":1698,
+    "seconds":10.5,
+    "correct":true,
+    "expected":null,
+    "judged_claims":12,
+    "supported_claims":12,
+    "unsupported":[
+
+    ],
+    "answer":"Atlanticus, Synchrony and Capital One describe subprime or near-prime risk directly. LendingClub's passages don't. The filings are the latest 10-Ks, covering fiscal 2025.\n\n**Atlanticus (ATLC)**\n- Most of its receivables come from borrowers whom regulators classify as less than prime, and the portfolio has limited diversification. It says relying on these receivables could hurt performance. [ATLC-10K-2026#0029]\n- During economic slowdowns, recessions or rapid inflation, it generally sees more delinquencies and more frequent, more severe credit losses. [ATLC-10K-2026#0029]\n- It says \"continued testing of receivables with higher risk profiles\" leads to periodic increases in net charge-offs. Higher expected charge-off rates also go with higher-yielding receivables. [ATLC-10K-2026#0128]\n- Its reported income depends on management's estimates of future receivable performance. If actual performance differs, net income can fluctuate. [ATLC-10K-2026#0029]\n\n**Synchrony (SYF)**\n- At December 31, 2025, 26% of its loan receivables were from customers with a VantageScore of 650 or less (excluding unrated accounts). It says these customers typically have higher delinquency and credit losses. [SYF-10K-2026#0125]\n- Customers with little cash flow and no access to other credit may lean more on their cards and be more likely to default. That would raise credit losses. [SYF-10K-2026#0125]\n- Its scoring models may not accurately predict usage, payments and charge-offs. Its underwriting may not prevent high charge-offs, and its allowance may not cover actual losses. [SYF-10K-2026#0124]\n- It also cites pressure from customers' obligations to other lenders and from the rise of non-bank pay-over-time products such as Affirm, Afterpay and Klarna. [SYF-10K-2026#0125]\n\n**Capital One (COF)**\n- It deliberately originates both prime and subprime credit card and auto loans. Because of that mix, it says it may see higher delinquencies, more charge-offs and bigger swings in those metrics than other large bank peers. [COF-10K-2026#0065]\n- A shift toward more subprime card or auto loans could hurt credit quality. [COF-10K-2026#0065]\n- It says subprime card and auto loans typically have higher delinquencies and charge-offs than prime accounts. It also faces heavier legal and regulatory scrutiny of its collection practices and fees. [COF-10K-2026#0091]\n- It defines subprime as a FICO score of 660 or below for credit cards and 620 or below for auto loans. [COF-10K-2026#0246]\n- Higher interest rates can make it harder for some borrowers to pay, which could mean more delinquencies or charge-offs. [COF-10K-2026#0060]\n\n**LendingClub (LC)**\n- The passages I retrieved don't mention subprime or near-prime borrowers. They discuss credit-model risk instead: if its models misjudge creditworthiness, losses could be higher than forecast, and it may owe marketplace investors under credit support agreements. [LC-10K-2026#0079]\n- Its personal loans are unsecured, and collections depend on borrowers' continued financial stability. [LC-10K-2026#0080]\n\nI only ran one search per company, so LendingClub may discuss subprime elsewhere in its filing.",
+    "lenders_cited":4.0
+  },
+  {
+    "category":"filings",
+    "question":"How do the peer lenders describe the risk that rising interest rates raise their funding costs?",
+    "final":null,
+    "tool_calls":4,
+    "citations":10,
+    "invalid_citations":0,
+    "input_tokens":15792,
+    "output_tokens":1698,
+    "seconds":11.7,
+    "correct":true,
+    "expected":null,
+    "judged_claims":12,
+    "supported_claims":12,
+    "unsupported":[
+
+    ],
+    "answer":"All four peers describe this risk in their latest 10-Ks. They differ in where the funding pressure comes from.\n\n**Atlanticus (ATLC)**\n- It says some financing facilities are priced at spreads over floating rates such as SOFR or Prime. Rate increases could therefore hurt results. [ATLC-10K-2026#0154]\n- It mitigates this by keeping the \"significant majority\" of its debt at fixed rates. If floating-rate costs rise and it can't reprice the assets, its margin may be compressed. [ATLC-10K-2026#0154]\n- The risk is most visible in Auto Finance. Those loans are fixed-rate and typically can't be repriced, while the funding is priced over a floating benchmark. [ATLC-10K-2026#0154]\n- Rate increases in 2022 and 2023 raised rates on newly originated debt and on its non-fixed debt. Its interest expense ratio rose through 2024 and 2025. It expects a marginal further increase as it replaces financing at a higher cost of capital. [ATLC-10K-2026#0129]\n\n**Synchrony (SYF)**\n- It funds assets with deposits, asset-backed securities and unsecured debt. At December 31, 2025, 53% of its loan receivables were fixed-rate and 47% were floating-rate. [SYF-10K-2026#0128]\n- Floating-rate assets and liabilities could reset at different times or diverge, causing mismatches. Competitive and regulatory limits may stop it from raising loan rates in time. [SYF-10K-2026#0128]\n- Rate changes and competitor responses could lead customers to move deposits. Lower deposits could materially hurt its funding costs and liquidity. [SYF-10K-2026#0079]\n- Rate changes could also raise its funding costs and reduce its liquidity. [SYF-10K-2026#0129]\n\n**Capital One (COF)**\n- Higher interest rates may increase its borrowing costs. They may also force it to pay more on deposits and reduce the market value of its securities. [COF-10K-2026#0060]\n- Competition for deposits is a separate pressure. If it has to offer higher rates to attract or keep deposits, its funding costs \"will be adversely impacted.\" [COF-10K-2026#0062]\n- Interest rate volatility could cause securitizations to amortize early. That could speed up its need for other funding. [COF-10K-2026#0062]\n\n**LendingClub (LC)**\n- It names higher deposit rates as the channel. As rates rise or stay high, it may have to raise deposit rates to stay competitive. That would increase its cost of funding and reduce its net interest margin. [LC-10K-2026#0069]\n- Its assets and funding sources reprice on different timelines and can be tied to different rate benchmarks. [LC-10K-2026#0072]\n- Its net interest income sensitivity table shows a decline when rates rise. At December 31, 2025, +100 bp gives (3.8)% and +200 bp gives (7.8)%. Management attributes this mainly to higher rates paid on interest-bearing deposits, partly offset by higher rates earned on new loans and by hedging. [LC-10K-2026#0148]\n- It says hedges won't completely eliminate the risk. [LC-10K-2026#0072]\n\n**Takeaway:** Atlanticus's exposure comes through floating-rate secured facilities. The three deposit-funded peers (Synchrony, Capital One and LendingClub) stress deposit pricing and competition. Synchrony also stresses asset-liability repricing mismatches. All four link higher funding costs to margin compression.",
+    "lenders_cited":4.0
+  },
+  {
+    "category":"filings",
+    "question":"What regulatory risks do the peer consumer lenders highlight in their 10-Ks?",
+    "final":null,
+    "tool_calls":4,
+    "citations":14,
+    "invalid_citations":0,
+    "input_tokens":16436,
+    "output_tokens":2038,
+    "seconds":14.3,
+    "correct":true,
+    "expected":null,
+    "judged_claims":12,
+    "supported_claims":12,
+    "unsupported":[
+
+    ],
+    "answer":"Based on the latest 10-K filings of the four peers (Atlanticus, Synchrony, Capital One and LendingClub), the main regulatory risks fall into five groups.\n\n**1. Consumer-protection enforcement and CFPB oversight (all four)**\n- **Atlanticus:**\n  - It says it operates in a heavily regulated industry. Changes in consumer protection laws, or in how they are interpreted, could expose it to litigation and make collections harder. [ATLC-10K-2026#0033]\n  - Regulatory reviews could lead to changes in business practices, fines, restitution and litigation. [ATLC-10K-2026#0033]\n  - Its issuing-bank partners serve customers at the lower end of the credit score range. Atlanticus says this may bring greater regulatory scrutiny. [ATLC-10K-2026#0024]\n  - If the FDIC, CFPB or FTC object to product terms, marketing or collection practices, it could have to modify or discontinue products or practices. [ATLC-10K-2026#0024]\n- **Synchrony:**\n  - It cites ongoing uncertainty about the CFPB's role. The CFPB has broad authority to prevent \"unfair, deceptive or abusive acts or practices\". [SYF-10K-2026#0189]\n  - State attorneys general may be more active if CFPB enforcement decreases. Actions could bring civil money penalties, customer remediation and higher compliance costs. [SYF-10K-2026#0187]\n- **LendingClub:**\n  - LC Bank has assets over $10 billion, so the CFPB supervises it for federal consumer financial laws. [LC-10K-2026#0027]\n  - If it does not comply, it could face penalties, class actions, state attorney general actions, rescission rights and supervisory or enforcement actions. [LC-10K-2026#0027]\n  - Non-compliance could also cost it licenses or lead to a consent order. It could be forced to modify or suspend business practices. [LC-10K-2026#0141]\n- **Capital One:** It says heightened regulatory expectations and a larger volume of regulatory changes may increase expenses. It also flags possible supervisory and enforcement actions tied to integrating Discover. [COF-10K-2026#0093]\n\n**2. Interest-rate caps and pricing limits**\n- Atlanticus names proposals such as extending the Military Lending Act's 36% APR cap to all consumers. It says any rate cap could materially harm its business. [ATLC-10K-2026#0039]\n- Synchrony says January 2026 policy discussions on credit card interest-rate caps could constrain how it prices products. [SYF-10K-2026#0187]\n\n**3. Capital, liquidity and dividend restrictions (bank-regulated peers)**\n- Synchrony cites a new stress capital buffer assigned for 2028. It says further rulemaking could add capital and liquidity requirements and limit dividends and buybacks. [SYF-10K-2026#0189]\n- LendingClub says regulatory capital rules limit dividends and capital distributions from the company and LC Bank. [LC-10K-2026#0026]\n- Capital One is a bank holding company and financial holding company. It is subject to capital adequacy standards and limits on nonbanking activities. [COF-10K-2026#0014]\n\n**4. Privacy, data security and AI**\n- Capital One points to CCPA, other state privacy laws, PIPEDA, EU GDPR and UK GDPR. It says these laws bring strict requirements and possible severe penalties. [COF-10K-2026#0037]\n- Capital One also says state and foreign AI regulation is evolving. Colorado and California are examples. It may need to adjust its offerings as a result. [COF-10K-2026#0088]\n- Atlanticus cites expanding state wiretapping laws, such as the California Invasion of Privacy Act, applied to cookies and pixels. It also cites the Telephone Consumer Protection Act and breach-notification laws. [ATLC-10K-2026#0057]\n- Synchrony cites its CFPB Section 1033 data-access rule, which is currently enjoined and being reconsidered. [SYF-10K-2026#0181]\n\n**5. Anti-money-laundering and financial-crime laws**\n- LendingClub lists Bank Secrecy Act and USA PATRIOT Act obligations. Failure to comply could bring enforcement action, penalties and reputational harm. [LC-10K-2026#0027]\n\nI did not search every risk factor section in each filing. This is a summary of the passages the search returned.",
+    "lenders_cited":4.0
+  }
+]

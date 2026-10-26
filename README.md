@@ -2,7 +2,7 @@
 
 End-to-end credit risk system on 2M+ public Lending Club loans: data pipeline, probability-of-default model, stress testing, portfolio optimization, real-time monitoring, model governance, and an AI risk analyst.
 
-**Status:** Modules 1–5 complete (data pipeline, default model, stress testing, policy optimization, champion/challenger test). Modules 6–10 in progress.
+**Status:** Modules 1–5 and 8 complete (data pipeline, default model, stress testing, policy optimization, champion/challenger test, AI risk analyst). Modules 6, 7, 9, 10 in progress.
 
 ## Module 1: Data pipeline and data quality
 
@@ -120,6 +120,30 @@ experiment/
   run.py     design, randomized readout, robustness, decision, report
 ```
 
+## Module 8: AI risk analyst (Claude + RAG + evaluation)
+
+A Claude agent that answers risk questions and writes risk memos, citing every claim. Evaluation: [`reports/agent_eval.md`](reports/agent_eval.md).
+
+| Tool | What it does |
+| --- | --- |
+| `query_portfolio` | Read-only SQL over the scored, stressed and policy tables (DuckDB in memory, file access disabled, single SELECT only) |
+| `search_documents` | BM25 search over this project's reports and the latest 10-Ks of Atlanticus, Synchrony, Capital One and LendingClub (SEC EDGAR) |
+| `get_results` | Exact numbers from each module's results file |
+
+- **Citations are verified:** every cited id must have been returned by a tool in that conversation, so invented citations are caught deterministically.
+- **Evaluation set:** about 30 questions whose answer keys are computed from the project's own results and tables (so they update when models are rerun), plus questions the data cannot answer (must abstain) and open 10-K questions.
+- **Metrics:** answer accuracy, abstention accuracy, invalid-citation rate, and citation faithfulness (an LLM judge checks each cited passage supports its sentence).
+
+```
+agent/
+  ingest.py     download 10-Ks from EDGAR, chunk filings and reports, build the BM25 index
+  retrieval.py  BM25 search
+  tools.py      the three tools and their schemas; SQL sandbox
+  core.py       Claude tool-use loop, citation check
+  ask.py        CLI: answer a question or write a memo to reports/memos/
+  evaluate.py   question set, scoring, LLM judge, report
+```
+
 ## Run it
 
 ```bash
@@ -147,6 +171,12 @@ python -m optimize.run
 
 # 7. Champion/challenger experiment (Module 5)
 python -m experiment.run
+
+# 8. AI risk analyst (Module 8): needs ANTHROPIC_API_KEY in .env
+python -m agent.ingest --email you@school.edu
+python -m agent.ask "How much would the 2015 book lose in a severe recession?"
+python -m agent.ask --memo "Risk review of the 2015 book and peer lenders"
+python -m agent.evaluate
 ```
 
 On a Mac, LightGBM needs OpenMP: `brew install libomp`.

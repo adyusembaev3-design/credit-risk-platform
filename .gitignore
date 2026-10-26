@@ -17,3 +17,6 @@ kaggle.json
 # Experiment tracking (local)
 mlruns/
 mlflow.db
+
+# Downloaded 10-K filings and search index (rebuild with python -m agent.ingest)
+data/agent/
