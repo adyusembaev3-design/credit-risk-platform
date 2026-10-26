@@ -2,7 +2,7 @@
 
 End-to-end credit risk system on 2M+ public Lending Club loans: data pipeline, probability-of-default model, stress testing, portfolio optimization, real-time monitoring, model governance, and an AI risk analyst.
 
-**Status:** Modules 1–4 complete (data pipeline, default model, stress testing, policy optimization). Modules 5–10 in progress.
+**Status:** Modules 1–5 complete (data pipeline, default model, stress testing, policy optimization, champion/challenger test). Modules 6–10 in progress.
 
 ## Module 1: Data pipeline and data quality
 
@@ -92,7 +92,7 @@ stress/
 
 Which 2015 loans should be funded to maximize profit while severe-recession losses stay within budget? Results: [`reports/policy_report.md`](reports/policy_report.md).
 
-- **Profit per loan:** expected lifetime interest (scheduled interest × the share actually collected, which prepayment and default cut) minus expected loss (PD × LGD × principal) minus funding cost.
+- **Profit per loan:** expected lifetime interest (scheduled interest × the share actually collected on 2013–2014 loans, since prepayment and default cut it) minus expected loss (PD × LGD × principal) minus funding cost.
 - **Decision:** approve or decline each of ~70 segments (grade × predicted-risk decile), solved as a mixed-integer program with HiGHS (or Gurobi with `--solver gurobi`).
 - **Constraints:** severe-scenario loss ≤ 10% of approved principal, approved volume ≥ 50% of the book, grades E–G ≤ 15% of approved principal.
 - **Evaluation:** the policy is chosen from predictions only; realized 2015 profit is then compared with approving every loan and with a grade A–D cutoff. A frontier shows profit at each loss budget.
@@ -102,6 +102,22 @@ optimize/
   profit.py   expected and realized lifetime profit, yield factors
   solver.py   approve/decline MIP (HiGHS or Gurobi), feasibility check
   run.py      segments, benchmark policies, frontier, report; writes data/processed/policy_segments.parquet
+```
+
+## Module 5: Champion/challenger experiment
+
+Would the optimized policy win a randomized test against the status quo? Results: [`reports/experiment_report.md`](reports/experiment_report.md).
+
+- **Arms:** 2015 applicants split 50/50 at random. Champion funds everyone Lending Club approved; challenger applies the Module 4 policy; a declined applicant earns $0.
+- **Design first:** the test is sized with a power calculation from model predictions and 2013–2014 profit variance, before any 2015 outcome is used.
+- **Readout:** profit uplift per applicant with a Welch t-test and a bootstrap CI; guardrails on approval rate and default rate of funded loans.
+- **Robustness:** 50 re-randomizations and an empirical power curve at smaller test sizes.
+- **Decision rule:** launch only if the uplift CI is above $0 and funded loans do not default more than the champion's.
+
+```
+experiment/
+  stats.py   Welch test, bootstrap CI, two-proportion test, sample-size formula
+  run.py     design, randomized readout, robustness, decision, report
 ```
 
 ## Run it
@@ -128,6 +144,9 @@ python -m stress.run
 
 # 6. Optimize the credit policy (Module 4)
 python -m optimize.run
+
+# 7. Champion/challenger experiment (Module 5)
+python -m experiment.run
 ```
 
 On a Mac, LightGBM needs OpenMP: `brew install libomp`.

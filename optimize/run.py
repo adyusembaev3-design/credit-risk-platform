@@ -159,7 +159,7 @@ def write_report(path: Path, policies: pd.DataFrame, c: Constraints, factors: pd
         "",
         "Expected profit = (1 − PD) × scheduled interest × yield_good + PD × (scheduled interest × yield_bad − LGD × "
         f"principal) − funding cost ({FUNDING_RATE:.0%} a year on 1.5 principal-years). Yield factors are the share of "
-        "scheduled interest actually collected on loans issued before 2015 (prepayment and default cut it):",
+        "scheduled interest actually collected on loans issued 2013–2014 (prepayment and default cut it):",
         "",
         md_table(factors, {"yield_good": ".1%", "yield_bad": ".1%"}),
         "",
@@ -208,6 +208,9 @@ def run(data_dir: Path, reports: Path, c: Constraints, solver: str = "highs") ->
     write_report(reports / "policy_report.md", policies, c, factors, decision_grid(seg), fr, calib,
                  len(book), float(book["loan_amnt"].sum()), solver)
     seg.to_parquet(data_dir / "policy_segments.parquet", index=False)
+    decisions = book.merge(seg[["grade", "risk_band", "approve"]], on=["grade", "risk_band"], how="left")
+    decisions[["loan_id", "issue_date", "grade", "risk_band", "approve", "loan_amnt", "is_default", "pd_baseline",
+               "profit_baseline", "profit_realized"]].to_parquet(data_dir / "policy_loans.parquet", index=False)
     results = {"constraints": vars(c), "policies": policies.to_dict(orient="records"),
                "frontier": fr.to_dict(orient="records"), "yield_factors": factors.to_dict(orient="records"),
                "calibration": calib, "segments_approved": int(sol.approve.sum()), "segments": int(len(seg))}

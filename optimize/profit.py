@@ -8,7 +8,8 @@
 
 yield_good / yield_bad are the share of scheduled interest actually collected on
 fully paid / defaulted loans (prepayment and early default cut it), measured by
-grade on loans issued before 2015.
+grade on loans issued 2013-2014: the most recent matured vintages before the 2015
+book, so borrower behavior is closest to it.
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ import pandas as pd
 TERM_MONTHS = 36
 FUNDING_RATE = 0.04      # annual cost of the money lent
 BALANCE_YEARS = 1.5      # average outstanding balance of a 36-month amortizing loan, in principal-years
+YIELD_START = "2013-01-01"   # most recent vintages before the 2015 book
 ESTIMATION_END = "2014-12-31"
 
 
@@ -30,10 +32,11 @@ def funding_cost(df: pd.DataFrame) -> pd.Series:
 
 
 def yield_factors(loans: pd.DataFrame, outcomes: pd.DataFrame) -> pd.DataFrame:
-    """Share of scheduled interest collected, by grade and outcome, on pre-2015 loans."""
+    """Share of scheduled interest collected, by grade and outcome, on 2013-2014 loans."""
     d = loans[["loan_id", "grade", "issue_date", "installment", "loan_amnt"]].merge(
         outcomes[["loan_id", "is_default", "interest_received"]], on="loan_id")
-    d = d[pd.to_datetime(d["issue_date"]) <= ESTIMATION_END].copy()
+    issued = pd.to_datetime(d["issue_date"])
+    d = d[(issued >= YIELD_START) & (issued <= ESTIMATION_END)].copy()
     d["sched"] = scheduled_interest(d)
     g = d.groupby(["grade", "is_default"]).agg(recv=("interest_received", "sum"), sched=("sched", "sum")).reset_index()
     g["factor"] = g["recv"] / g["sched"]
