@@ -1,4 +1,5 @@
--- Stage 4: realized loan outcomes, used ONLY to measure loss severity (Module 3).
+-- Stage 4: realized loan outcomes, used ONLY for loss severity (Module 3) and
+-- realized profit (Module 4).
 -- These are post-issue payment fields, so they live in their own table and are
 -- never joined into loans_model (leakage control DQ-08 checks loans_model).
 CREATE OR REPLACE TABLE loan_outcomes AS
@@ -7,6 +8,7 @@ SELECT
     m.is_default,
     m.loan_amnt,
     TRY_CAST(r.total_rec_prncp AS DOUBLE)          AS principal_repaid,
+    coalesce(TRY_CAST(r.total_rec_int AS DOUBLE), 0) AS interest_received,
     coalesce(TRY_CAST(r.recoveries AS DOUBLE), 0)  AS recoveries,
     coalesce(TRY_CAST(r.collection_recovery_fee AS DOUBLE), 0) AS collection_fee,
     -- Loss as a share of the original loan amount (folds exposure-at-default in):

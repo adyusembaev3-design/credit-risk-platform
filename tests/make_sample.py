@@ -30,7 +30,7 @@ COLUMNS = [
     "avg_cur_bal", "mo_sin_old_rev_tl_op", "mo_sin_rcnt_tl", "num_actv_rev_tl",
     "pct_tl_nvr_dlq", "mths_since_recent_inq",
     # post-issue fields that exist in the real file and must never reach the model
-    "total_pymnt", "total_rec_prncp", "recoveries", "collection_recovery_fee", "last_pymnt_d",
+    "total_pymnt", "total_rec_prncp", "total_rec_int", "recoveries", "collection_recovery_fee", "last_pymnt_d",
 ]
 
 GRADES = {  # grade: (base interest rate, default probability, sampling weight)
@@ -176,6 +176,8 @@ def make_rows(n: int, seed: int = 7) -> list[dict]:
             **bureau,
             "total_pymnt": f"{amount * rng.uniform(0.3, 1.3):.2f}",
             "total_rec_prncp": f"{amount * rng.uniform(0.05, 0.6):.2f}" if status == "Charged Off" else f"{amount:.2f}",
+            # Interest actually received: prepayment cuts it for good loans, default cuts it more
+            "total_rec_int": f"{(installment(amount, rate, term) * term - amount) * rng.uniform(*((0.05, 0.4) if status == 'Charged Off' else (0.5, 1.0))):.2f}",
             "recoveries": f"{amount * rng.uniform(0.0, 0.12):.2f}" if status == "Charged Off" else "0.0",
             "collection_recovery_fee": f"{amount * rng.uniform(0.0, 0.02):.2f}" if status == "Charged Off" else "0.0",
             "last_pymnt_d": f"{rng.choice(MONTHS)}-2018",

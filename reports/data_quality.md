@@ -1,6 +1,6 @@
 # Data quality report
 
-Run: 2026-10-25 04:15 UTC · Table: `loans_model` · **83 passed, 0 warnings, 0 failures**
+Run: 2026-10-26 16:23 UTC · Table: `loans_model` · **83 passed, 0 warnings, 0 failures**
 
 | ID | Check | Severity | Status | Observed | Expected |
 | --- | --- | --- | --- | --- | --- |

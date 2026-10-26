@@ -84,7 +84,7 @@ One row per loan. Source: Lending Club accepted loans 2007–2018Q4 (Kaggle `wor
 
 # Data dictionary: `loan_outcomes`
 
-Realized results of each loan, used **only** to measure loss severity in Module 3. Kept in a separate table so post-issue payment data can never enter the default model (DQ-08).
+Realized results of each loan, used **only** for loss severity (Module 3) and realized profit (Module 4). Kept in a separate table so post-issue payment data can never enter the default model (DQ-08).
 
 | Column | Type | Definition |
 | --- | --- | --- |
@@ -92,6 +92,7 @@ Realized results of each loan, used **only** to measure loss severity in Module 
 | `is_default` | int | Same target as `loans_model` |
 | `loan_amnt` | double | Original principal, USD |
 | `principal_repaid` | double | Principal repaid before charge-off, USD |
+| `interest_received` | double | Interest actually paid over the loan's life, USD (lower than scheduled when prepaid or defaulted) |
 | `recoveries` | double | Post-charge-off recoveries, USD |
 | `collection_fee` | double | Collection fees on recoveries, USD |
 | `loss_rate` | double | Defaults only: (principal − repaid − recoveries + fees) / principal, clipped to [0, 1] |

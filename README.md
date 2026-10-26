@@ -2,7 +2,7 @@
 
 End-to-end credit risk system on 2M+ public Lending Club loans: data pipeline, probability-of-default model, stress testing, portfolio optimization, real-time monitoring, model governance, and an AI risk analyst.
 
-**Status:** Modules 1–3 complete (data pipeline, default model, stress testing). Modules 4–10 in progress.
+**Status:** Modules 1–4 complete (data pipeline, default model, stress testing, policy optimization). Modules 5–10 in progress.
 
 ## Module 1: Data pipeline and data quality
 
@@ -88,6 +88,22 @@ stress/
   run.py     sensitivity, LGD, scenarios, backtest, report; writes data/processed/stressed_book.parquet
 ```
 
+## Module 4: Credit policy optimization
+
+Which 2015 loans should be funded to maximize profit while severe-recession losses stay within budget? Results: [`reports/policy_report.md`](reports/policy_report.md).
+
+- **Profit per loan:** expected lifetime interest (scheduled interest × the share actually collected, which prepayment and default cut) minus expected loss (PD × LGD × principal) minus funding cost.
+- **Decision:** approve or decline each of ~70 segments (grade × predicted-risk decile), solved as a mixed-integer program with HiGHS (or Gurobi with `--solver gurobi`).
+- **Constraints:** severe-scenario loss ≤ 10% of approved principal, approved volume ≥ 50% of the book, grades E–G ≤ 15% of approved principal.
+- **Evaluation:** the policy is chosen from predictions only; realized 2015 profit is then compared with approving every loan and with a grade A–D cutoff. A frontier shows profit at each loss budget.
+
+```
+optimize/
+  profit.py   expected and realized lifetime profit, yield factors
+  solver.py   approve/decline MIP (HiGHS or Gurobi), feasibility check
+  run.py      segments, benchmark policies, frontier, report; writes data/processed/policy_segments.parquet
+```
+
 ## Run it
 
 ```bash
@@ -109,6 +125,9 @@ mlflow ui   # optional: browse the experiment at http://127.0.0.1:5000
 
 # 5. Stress test (Module 3; downloads unemployment from FRED on first run)
 python -m stress.run
+
+# 6. Optimize the credit policy (Module 4)
+python -m optimize.run
 ```
 
 On a Mac, LightGBM needs OpenMP: `brew install libomp`.
