@@ -1,0 +1,15 @@
+# Keep secrets, data and local environments out of the image
+.env
+kaggle.json
+.git
+.venv
+data/
+mlruns/
+mlflow.db
+reports/
+**/__pycache__
+**/.pytest_cache
+dashboard/node_modules
+dashboard/dist
+*.duckdb
+*.zip

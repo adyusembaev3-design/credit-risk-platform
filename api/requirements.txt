@@ -1,0 +1,8 @@
+# Runtime dependencies of the API image only (the full project uses ../requirements.txt)
+fastapi>=0.115
+uvicorn>=0.30
+lightgbm>=4.3
+numpy>=1.26
+pandas>=2.2
+pydantic>=2.7
+prometheus-client>=0.20

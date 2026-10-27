@@ -1,0 +1,24 @@
+{
+  "single_caller_latency_ms": {
+    "p50": 86.95068751694635,
+    "p95": 100.19212261540815,
+    "p99": 102.01021170942113
+  },
+  "server_scoring_ms": {
+    "p50": 36.623466000008875,
+    "p95": 76.81105579997904,
+    "p99": 77.28250369000477
+  },
+  "url": "https://credit-console.kp7p4tar0xwyc.ca-central-1.cs.amazonlightsail.com",
+  "requests": 1000,
+  "concurrency": 10,
+  "errors": 0,
+  "requests_per_s": 10.498836631779247,
+  "latency_ms": {
+    "p50": 922.8393540252,
+    "p95": 1391.1553440848365,
+    "p99": 1558.0183795723133
+  },
+  "batch_size": 1000,
+  "batch_applications_per_s": 63.99002660269587
+}

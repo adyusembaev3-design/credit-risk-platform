@@ -1,5 +1,7 @@
 # Consumer Credit Risk & Portfolio Decision Platform
 
+**Live demo:** [https://credit-console.kp7p4tar0xwyc.ca-central-1.cs.amazonlightsail.com/](https://credit-console.kp7p4tar0xwyc.ca-central-1.cs.amazonlightsail.com/) (dashboard) · [API docs](https://credit-console.kp7p4tar0xwyc.ca-central-1.cs.amazonlightsail.com/docs)
+
 End-to-end credit risk system on 2M+ public Lending Club loans: data pipeline, probability-of-default model, stress testing, portfolio optimization, real-time monitoring, model governance, and an AI risk analyst.
 
 **Status:** Modules 1–8 complete (data pipeline, default model, stress testing, policy optimization, champion/challenger test, live monitoring, governance, AI risk analyst). Modules 9–10 in progress.
@@ -254,6 +256,9 @@ python -m api.export
 uvicorn api.main:app --port 8000          # docs at http://localhost:8000/docs
 python -m api.loadtest                    # in a second terminal
 cd dashboard && npm install && npm run build && cd ..   # then restart uvicorn: dashboard at http://localhost:8000
+
+# 12. Docker image and AWS deployment (Module 9): see docs/deploy_aws.md
+docker build -t credit-console . && docker run --rm -p 8000:8000 credit-console
 ```
 
 On a Mac, LightGBM needs OpenMP: `brew install libomp`.
