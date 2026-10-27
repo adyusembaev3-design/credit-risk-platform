@@ -31,6 +31,7 @@ import pandas as pd  # noqa: E402
 from sklearn.metrics import roc_curve  # noqa: E402
 
 from models import features as F  # noqa: E402
+from models.features import gbm_matrix  # noqa: E402,F401  (re-exported)
 from models.metrics import calibration_table, psi, summarize  # noqa: E402
 from models.reason_codes import mean_abs_contribution, top_reasons  # noqa: E402
 from models.woe import Scorecard  # noqa: E402
@@ -53,17 +54,6 @@ def load(path: Path, sample_frac: float | None = None, seed: int = 42) -> pd.Dat
     if sample_frac:
         df = df.groupby("split", group_keys=False).sample(frac=sample_frac, random_state=seed)
     return df.reset_index(drop=True)
-
-
-def gbm_matrix(df: pd.DataFrame, categories: dict[str, list[str]]) -> pd.DataFrame:
-    X = df[F.FEATURES].copy()
-    for col in F.NUMERIC:
-        X[col] = X[col].astype(float)
-    for col in F.CATEGORICAL:
-        vals = X[col].astype("object")
-        vals = vals.where(vals.isin(categories[col]))  # unseen levels -> missing
-        X[col] = pd.Categorical(vals, categories=categories[col])
-    return X
 
 
 def benchmark_risk(df: pd.DataFrame) -> np.ndarray:

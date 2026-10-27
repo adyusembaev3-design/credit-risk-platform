@@ -45,9 +45,7 @@ class PolicyScorer:
                    json.loads((art / "gbm_categories.json").read_text()))
 
     def matrix(self, df: pd.DataFrame) -> pd.DataFrame:
-        from models.train import gbm_matrix
-
-        return gbm_matrix(df, self.categories)
+        return F.gbm_matrix(df, self.categories)
 
     def score(self, df: pd.DataFrame) -> pd.DataFrame:
         X = self.matrix(df)
@@ -58,4 +56,4 @@ class PolicyScorer:
         reasons = top_reasons(np.asarray(self.contrib(X)), F.FEATURES)
         out = pd.DataFrame({"loan_id": df["loan_id"].to_numpy(), "pd": p, "pd_baseline": p_base,
                             "risk_band": band, "approve": approve})
-        return pd.concat([out, reasons[["reason_1", "reason_2", "reason_3"]]], axis=1)
+        return pd.concat([out, reasons[[f"reason_{k}{s}" for k in (1, 2, 3) for s in ("", "_feature")]]], axis=1)

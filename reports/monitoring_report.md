@@ -2,7 +2,7 @@
 
 Injected drift at application 30,000 was detected after **2,000 applications** by the `feature_psi:fico_mid` alert, with 0 false alarm(s) before it.
 
-Backend: memory · 60,000 applications in 17s (3,494/s) · p95 scoring latency 0.31 ms per application · rolling window 5,000.
+Backend: memory · 60,000 applications in 18s (3,418/s) · p95 scoring latency 0.30 ms per application · rolling window 5,000.
 
 ## Alerts
 

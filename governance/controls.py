@@ -140,7 +140,7 @@ def c07_monotonicity(ctx):
     except (ImportError, OSError):
         return Result(NA, "lightgbm not available")
     from models import features as F
-    from models.train import gbm_matrix
+    from models.features import gbm_matrix
 
     booster = lgb.Booster(model_file=str(model_p))
     sample = loans[loans["split"] == "oot"].sample(min(2000, (loans["split"] == "oot").sum()), random_state=0)

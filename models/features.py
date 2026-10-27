@@ -6,6 +6,10 @@ so they are excluded and sub-grade is kept only as a BENCHMARK: the question
 is whether our model ranks risk better than the lender's own grade.
 """
 
+from __future__ import annotations
+
+import pandas as pd
+
 NUMERIC = [
     "loan_amnt",
     "emp_length_years",
@@ -120,3 +124,15 @@ REASON_TEXT = {
 }
 
 SUB_GRADES = [f"{g}{n}" for g in "ABCDEFG" for n in range(1, 6)]
+
+
+def gbm_matrix(df: pd.DataFrame, categories: dict[str, list[str]]) -> pd.DataFrame:
+    """Model matrix for LightGBM: the FEATURES columns, with unseen categories as missing."""
+    X = df[FEATURES].copy()
+    for col in NUMERIC:
+        X[col] = X[col].astype(float)
+    for col in CATEGORICAL:
+        vals = X[col].astype("object")
+        vals = vals.where(vals.isin(categories[col]))  # unseen levels -> missing
+        X[col] = pd.Categorical(vals, categories=categories[col])
+    return X

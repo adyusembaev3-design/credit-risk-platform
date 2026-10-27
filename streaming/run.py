@@ -306,6 +306,7 @@ def main() -> None:
     summary = write_report(config.REPORTS_DIR / "monitoring_report.md", monitor, decisions, drift_at, secs, a.backend)
     (config.REPORTS_DIR / "monitoring_results.json").write_text(json.dumps(summary, indent=2, default=float))
     decisions.to_parquet(config.PROCESSED_DIR / "stream_decisions.parquet", index=False)
+    pd.DataFrame(monitor.timeline).to_json(config.REPORTS_DIR / "monitoring_timeline.json", orient="records")
     fa = summary["first_alert"]
     print(f"Scored {summary['applications']:,} applications in {secs:,.0f}s "
           f"({summary['throughput_per_s']:,.0f}/s, p95 {summary['latency_p95_ms']:.2f} ms)")

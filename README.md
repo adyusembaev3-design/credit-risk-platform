@@ -185,6 +185,23 @@ agent/
   evaluate.py   question set, scoring, LLM judge, report
 ```
 
+## Module 9: Decision API and dashboard
+
+The whole platform behind one HTTP service: send an application, get back a decision with its PD, risk band, stress-scenario PDs and adverse-action reasons.
+
+- **`POST /api/score`** scores 1-1,000 applications per call with the same code path as the live stream (Module 6). Inputs are validated: unknown fields are rejected, so a protected attribute such as `addr_state` cannot reach the model.
+- **Every decision carries the model version** (hash of the model file), for audit.
+- **Read endpoints** for the dashboard: stress loss at any unemployment shock, policy frontier, monitoring timeline, controls.
+- **Prometheus metrics** at `/metrics`, interactive docs at `/docs`, and a load test that measures latency and throughput.
+
+```
+api/
+  export.py    packages model, policy and results into api/bundle/ (no raw data in the service)
+  service.py   loads the bundle, scores applications
+  main.py      FastAPI app
+  loadtest.py  concurrent requests -> p50/p95/p99 latency, throughput
+```
+
 ## Run it
 
 ```bash
@@ -226,6 +243,11 @@ python -m streaming.run --metrics-port 8000 --rate 500     # watch at http://loc
 
 # 10. Governance: run all controls, update incidents, regenerate the model card (Module 7)
 python -m governance.run
+
+# 11. Decision API (Module 9)
+python -m api.export
+uvicorn api.main:app --port 8000          # docs at http://localhost:8000/docs
+python -m api.loadtest                    # in a second terminal
 ```
 
 On a Mac, LightGBM needs OpenMP: `brew install libomp`.

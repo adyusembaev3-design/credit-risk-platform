@@ -20,3 +20,6 @@ mlflow.db
 
 # Downloaded 10-K filings and search index (rebuild with python -m agent.ingest)
 data/agent/
+
+# API bundle (rebuild with python -m api.export)
+api/bundle/
