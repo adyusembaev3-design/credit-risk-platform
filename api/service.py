@@ -20,6 +20,17 @@ SMALL_BATCH = 64
 BUNDLE = Path(os.environ.get("BUNDLE_DIR", Path(__file__).resolve().parent / "bundle"))
 
 
+def _clean(v):
+    """NaN/inf are not valid JSON: turn them into null so every endpoint can serialize its data."""
+    if isinstance(v, float) and not np.isfinite(v):
+        return None
+    if isinstance(v, dict):
+        return {k: _clean(x) for k, x in v.items()}
+    if isinstance(v, list):
+        return [_clean(x) for x in v]
+    return v
+
+
 class Platform:
     def __init__(self, bundle: Path = BUNDLE, predict=None, contrib=None):
         bundle = Path(bundle)
@@ -41,9 +52,9 @@ class Platform:
         self.scenarios: dict[str, float] = cfg["scenarios"]
         self.scorer = PolicyScorer(predict, contrib, self.beta, self.d_train, np.array(cfg["band_edges"]),
                                    pd.DataFrame(cfg["policy"]), cfg["categories"])
-        self.grid = json.loads((bundle / "stress_grid.json").read_text())
-        self.samples = json.loads((bundle / "samples.json").read_text())
-        self.dashboard = json.loads((bundle / "dashboard.json").read_text())
+        self.grid = _clean(json.loads((bundle / "stress_grid.json").read_text()))
+        self.samples = _clean(json.loads((bundle / "samples.json").read_text()))
+        self.dashboard = _clean(json.loads((bundle / "dashboard.json").read_text()))
 
     # --- scoring -----------------------------------------------------------------
     def score(self, applications: list[dict]) -> list[dict]:
@@ -91,5 +102,6 @@ class Platform:
         return {"model_version": self.version, "bundle_created_at": self.cfg.get("created_at"),
                 "features": {"numeric": F.NUMERIC, "categorical": {c: self.cfg["categories"][c] for c in F.CATEGORICAL}},
                 "excluded_for_fair_lending": F.FAIR_LENDING_EXCLUDED, "grades": list("ABCDEFG"),
-                "scenarios": self.scenarios, "stress_range": [self.grid[0]["d_unemp"], self.grid[-1]["d_unemp"]],
+                "scenarios": self.scenarios, "band_edges": self.cfg["band_edges"], "policy": self.cfg["policy"],
+                "stress_range": [self.grid[0]["d_unemp"], self.grid[-1]["d_unemp"]],
                 "reason_text": F.REASON_TEXT}

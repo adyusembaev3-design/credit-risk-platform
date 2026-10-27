@@ -200,7 +200,12 @@ api/
   service.py   loads the bundle, scores applications
   main.py      FastAPI app
   loadtest.py  concurrent requests -> p50/p95/p99 latency, throughput
+dashboard/     React (Vite) console served by the API: decide an application, model and policy,
+               recession stress slider, live monitoring timeline, control register
 ```
+
+The dashboard's main view takes a real 2015 application and re-scores it as you edit any input, showing where the
+applicant sits among the ten risk bands today and under adverse and severe recessions.
 
 ## Run it
 
@@ -248,6 +253,7 @@ python -m governance.run
 python -m api.export
 uvicorn api.main:app --port 8000          # docs at http://localhost:8000/docs
 python -m api.loadtest                    # in a second terminal
+cd dashboard && npm install && npm run build && cd ..   # then restart uvicorn: dashboard at http://localhost:8000
 ```
 
 On a Mac, LightGBM needs OpenMP: `brew install libomp`.
