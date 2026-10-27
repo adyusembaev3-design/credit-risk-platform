@@ -209,6 +209,21 @@ dashboard/     React (Vite) console served by the API: decide an application, mo
 The dashboard's main view takes a real 2015 application and re-scores it as you edit any input, showing where the
 applicant sits among the ten risk bands today and under adverse and severe recessions.
 
+## Module 10: Rates and credit spreads
+
+The 2015 book viewed as a fixed-income asset, using Treasury yields and the Baa corporate spread from FRED. Results: [`reports/market_report.md`](reports/market_report.md).
+
+- **Relative value:** each grade's coupon spread over the 3-year Treasury at issue, less expected and realized annual credit losses, next to the Baa corporate spread.
+- **Rate risk:** weighted-average life, modified duration, DV01, value change for parallel shocks, and the extra cost of floating-rate funding.
+- **Market signals:** does the Baa-spread change explain cohort default rates better than the unemployment change in Module 3? Compared by AIC and out-of-time deviance.
+
+```
+market/
+  fred.py      FRED download and cache, monthly averages, forward changes
+  analysis.py  amortization, WAL, duration, spread table, cohort GLM comparison
+  run.py       report, figures, results JSON
+```
+
 ## Run it
 
 ```bash
@@ -257,7 +272,10 @@ uvicorn api.main:app --port 8000          # docs at http://localhost:8000/docs
 python -m api.loadtest                    # in a second terminal
 cd dashboard && npm install && npm run build && cd ..   # then restart uvicorn: dashboard at http://localhost:8000
 
-# 12. Docker image and AWS deployment (Module 9): see docs/deploy_aws.md
+# 12. Rates and credit spreads (Module 10; downloads Treasury and Baa series from FRED on first run)
+python -m market.run
+
+# 13. Docker image and AWS deployment (Module 9): see docs/deploy_aws.md
 docker build -t credit-console . && docker run --rm -p 8000:8000 credit-console
 ```
 
