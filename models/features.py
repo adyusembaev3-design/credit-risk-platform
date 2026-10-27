@@ -45,7 +45,6 @@ CATEGORICAL = [
     "home_ownership",
     "verification_status",
     "purpose",
-    "addr_state",
 ]
 
 FEATURES = NUMERIC + CATEGORICAL
@@ -54,6 +53,10 @@ BENCHMARK = "sub_grade"
 
 # Pricing outputs of Lending Club's model, never used as inputs.
 EXCLUDED = ["grade", "sub_grade", "int_rate", "installment", "payment_to_income"]
+
+# Fair lending: geography can proxy for protected characteristics, so state of residence is
+# not a model input (control C-14 flagged a 0.41 state approval-rate ratio; incident INC-006).
+FAIR_LENDING_EXCLUDED = ["addr_state"]
 
 # Direction of risk the model is allowed to learn (+1 = more risk as value rises).
 # Enforcing these keeps the model explainable and defensible in a model review.

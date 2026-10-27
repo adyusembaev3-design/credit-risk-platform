@@ -1,6 +1,6 @@
 # Stress test report
 
-A 5-point rise in unemployment would lift expected losses on the 2015 book from **$275M to $474M** (+73%). Each 1-point rise multiplies default odds by **1.16**, estimated from 335,558 loans issued Jun 2007–Dec 2014.
+A 5-point rise in unemployment would lift expected losses on the 2015 book from **$275M to $475M** (+73%). Each 1-point rise multiplies default odds by **1.16**, estimated from 335,558 loans issued Jun 2007–Dec 2014.
 
 Book: 283,026 loans issued in 2015, $3,624M of principal. All parameters are estimated on loans issued before 2015.
 
@@ -14,22 +14,22 @@ Unemployment change is the average over the next 24 months relative to today, in
 
 | scenario | mean_pd | expected_loss_usd_m | loss_rate |
 | --- | --- | --- | --- |
-| Baseline | 15.49% | 274.5 | 7.57% |
-| Adverse | 20.58% | 364.8 | 10.07% |
-| Severe | 26.72% | 474.0 | 13.08% |
+| Baseline | 15.50% | 274.5 | 7.57% |
+| Adverse | 20.60% | 365.1 | 10.07% |
+| Severe | 26.76% | 474.7 | 13.10% |
 | Realized | 14.69% | 260.2 | 7.18% |
 
 ![Scenarios](figures/stress_by_grade.png)
 
 | grade | loans | exposure_usd_m | lgd | loss_rate_baseline | loss_rate_adverse | loss_rate_severe | loss_rate_realized |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| A | 70,118 | 1,014.8 | 46.6% | 3.55% | 4.93% | 6.75% | 3.34% |
-| B | 91,725 | 1,148.3 | 49.0% | 6.45% | 8.75% | 11.61% | 6.09% |
-| C | 77,423 | 920.8 | 51.8% | 9.69% | 12.80% | 16.48% | 9.19% |
-| D | 32,711 | 402.4 | 54.8% | 12.90% | 16.67% | 20.97% | 12.28% |
-| E | 9,443 | 121.4 | 57.3% | 16.33% | 20.68% | 25.46% | 15.60% |
-| F | 1,361 | 14.2 | 60.1% | 20.59% | 25.49% | 30.63% | 19.76% |
-| G | 245 | 2.4 | 61.2% | 24.07% | 29.24% | 34.49% | 23.17% |
+| A | 70,118 | 1,014.8 | 46.6% | 3.54% | 4.92% | 6.74% | 3.33% |
+| B | 91,725 | 1,148.3 | 49.0% | 6.45% | 8.75% | 11.63% | 6.09% |
+| C | 77,423 | 920.8 | 51.8% | 9.69% | 12.81% | 16.51% | 9.19% |
+| D | 32,711 | 402.4 | 54.8% | 12.90% | 16.69% | 21.00% | 12.28% |
+| E | 9,443 | 121.4 | 57.3% | 16.42% | 20.80% | 25.60% | 15.69% |
+| F | 1,361 | 14.2 | 60.1% | 20.59% | 25.51% | 30.68% | 19.75% |
+| G | 245 | 2.4 | 61.2% | 24.58% | 29.77% | 35.00% | 23.67% |
 
 ## Macro sensitivity
 

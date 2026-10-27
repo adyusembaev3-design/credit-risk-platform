@@ -56,7 +56,7 @@ Three ways to rank risk, compared on the same loans:
 | WOE scorecard | Logistic regression on weight-of-evidence bins, converted to points (600 = 50:1 odds, 20 points doubles the odds) |
 | GBM | LightGBM with monotone constraints, exact SHAP reason codes per loan |
 
-Inputs: 35 application-time fields, including 15 extended bureau attributes. Neither model uses grade, sub-grade or interest rate, since those are outputs of Lending Club's own model. Trained on Jan 2013–Jun 2014, early-stopped on Jul–Dec 2014, tested out-of-time on 2015. Results: [`reports/model_report.md`](reports/model_report.md).
+Inputs: 34 application-time fields, including 15 extended bureau attributes. Neither model uses grade, sub-grade or interest rate, since those are outputs of Lending Club's own model, nor state of residence, which was removed for fair-lending reasons (incident INC-006: state approval-rate ratio 0.41 → 0.84 at an AUC cost of 0.0007). Trained on Jan 2013–Jun 2014, early-stopped on Jul–Dec 2014, tested out-of-time on 2015. Results: [`reports/model_report.md`](reports/model_report.md).
 
 ```
 models/

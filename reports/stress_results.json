@@ -49,33 +49,33 @@
   "scenarios": [
     {
       "scenario": "Baseline",
-      "mean_pd": 0.15492746243104333,
-      "expected_loss_usd_m": 274.5038441559057,
-      "loss_rate": 0.0757398072908037
+      "mean_pd": 0.15500840292835186,
+      "expected_loss_usd_m": 274.50219642397394,
+      "loss_rate": 0.07573935265637276
     },
     {
       "scenario": "Adverse",
-      "mean_pd": 0.20581250887107125,
-      "expected_loss_usd_m": 364.8323161978935,
-      "loss_rate": 0.10066281369302832
+      "mean_pd": 0.20604837865619777,
+      "expected_loss_usd_m": 365.11381801596605,
+      "loss_rate": 0.10074048434830962
     },
     {
       "scenario": "Severe",
-      "mean_pd": 0.26717551591236,
-      "expected_loss_usd_m": 473.96727810710775,
-      "loss_rate": 0.13077481816826786
+      "mean_pd": 0.2676344579709038,
+      "expected_loss_usd_m": 474.6754088867213,
+      "loss_rate": 0.130970202276456
     },
     {
       "scenario": "Realized",
-      "mean_pd": 0.14688446479175188,
-      "expected_loss_usd_m": 260.23822218429194,
-      "loss_rate": 0.07180370409219124
+      "mean_pd": 0.14694459815762123,
+      "expected_loss_usd_m": 260.2001169126261,
+      "loss_rate": 0.07179319026517503
     }
   ],
   "backtest": {
     "actual_usd_m": 274.01157724079764,
-    "expected_usd_m": 260.23822218429194,
-    "ratio": 0.9497344046729754,
+    "expected_usd_m": 260.2001169126261,
+    "ratio": 0.9495953402142778,
     "d_unemp_book": -0.449727542699257
   },
   "lgd_by_grade": [

@@ -1,35 +1,35 @@
 {
   "design": {
-    "expected_uplift": 145.33645660958337,
+    "expected_uplift": 139.30852917711616,
     "sd_per_applicant": 3076.520738710453,
-    "n_per_arm": 7035
+    "n_per_arm": 7657
   },
   "readout": {
     "n_champion": 141513,
     "n_challenger": 141513,
     "profit_per_applicant_champion": 36.36370693647762,
-    "profit_per_applicant_challenger": 120.47966034852188,
-    "uplift": 84.11595341204426,
-    "uplift_ci_low": 62.46307806453717,
-    "uplift_ci_high": 105.76882875955135,
-    "p_value": 2.6662993540267248e-14,
-    "uplift_boot_low": 63.97622693886347,
-    "uplift_boot_high": 107.1186716707058,
-    "approval_rate_challenger": 0.5741168655883205,
+    "profit_per_applicant_challenger": 122.56991354363547,
+    "uplift": 86.20620660715784,
+    "uplift_ci_low": 64.59547557022586,
+    "uplift_ci_high": 107.81693764408982,
+    "p_value": 5.3688473653437794e-15,
+    "uplift_boot_low": 66.00212629712837,
+    "uplift_boot_high": 108.98724679524501,
+    "approval_rate_challenger": 0.5741804639856409,
     "default_rate_champion": 0.14956929752036915,
-    "default_rate_challenger": 0.12133669764293187,
-    "default_rate_p_value": 1.2905032984683468e-76
+    "default_rate_challenger": 0.1198464075614739,
+    "default_rate_p_value": 5.434919433353017e-85
   },
   "decision": "Launch the challenger",
   "splits_significant_share": 1.0,
   "power_curve": [
     {
       "applicants_per_arm": 1000,
-      "power": 0.105
+      "power": 0.1
     },
     {
       "applicants_per_arm": 2000,
-      "power": 0.125
+      "power": 0.12
     },
     {
       "applicants_per_arm": 5000,
@@ -37,11 +37,11 @@
     },
     {
       "applicants_per_arm": 10000,
-      "power": 0.435
+      "power": 0.45
     },
     {
       "applicants_per_arm": 20000,
-      "power": 0.755
+      "power": 0.76
     },
     {
       "applicants_per_arm": 50000,

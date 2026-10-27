@@ -108,7 +108,8 @@ def write_model_card(path: Path, ctx: Context, rows: list[dict]) -> None:
         f"- Lending Club accepted loans, 36-month term, final outcome known. Train {p['train'][0]} to {p['train'][1]}, "
         f"validation {p['valid'][0]} to {p['valid'][1]}, out-of-time test {p['oot'][0]} to {p['oot'][1]}.",
         f"- {len(F.FEATURES)} application-time inputs ({len(F.NUMERIC)} numeric, {len(F.CATEGORICAL)} categorical). "
-        f"Excluded by design: {', '.join(F.EXCLUDED)} (outputs of Lending Club's own pricing).",
+        f"Excluded by design: {', '.join(F.EXCLUDED)} (outputs of Lending Club's own pricing) and "
+        f"{', '.join(F.FAIR_LENDING_EXCLUDED)} (fair lending: geography can proxy for protected characteristics).",
         "- Target: charged off or default = 1; fully paid = 0.",
         "",
         "## Performance (out-of-time)",

@@ -63,5 +63,18 @@
     "remediation": "Judge sees 15,000 characters and the SQL behind each result; robust verdict parsing that records raw replies when unparseable; claim splitting per list item; tests for each case.",
     "outcome": "Faithfulness 88-100% by category; remaining rejections reviewed and documented.",
     "status": "closed"
+  },
+  {
+    "id": "INC-006",
+    "opened": "2026-10-26",
+    "closed": "2026-10-26",
+    "severity": "high",
+    "control": "C-14",
+    "title": "Geographic disparity in approvals (fair-lending risk)",
+    "detection": "Control C-14: lowest/highest state approval-rate ratio 0.41 (Mississippi 33% vs. New Hampshire 80%), below the 0.80 four-fifths screen.",
+    "root_cause": "State of residence (addr_state) was a model input. Geography can proxy for protected characteristics, so using it directly creates disparate-impact (redlining) risk.",
+    "remediation": "Removed addr_state from the model inputs (new FAIR_LENDING_EXCLUDED list), retrained, and reran the stress test, policy optimization, experiment and controls. The remaining difference across states comes from credit factors such as income, debt and credit history.",
+    "outcome": "Ratio 0.41 -> 0.84 (passes). Out-of-time AUC 0.6884 -> 0.6877; optimized realized profit $33.5M -> $33.6M; experiment uplift $84.12 -> $86.21 per applicant.",
+    "status": "closed"
   }
 ]

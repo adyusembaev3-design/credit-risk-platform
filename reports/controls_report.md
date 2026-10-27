@@ -1,13 +1,12 @@
 # Model risk controls report
 
-Run 2026-10-26: **14 of 16 controls pass**, 2 need review, 0 fail, 0 not yet run. 1 incident(s) open.
+Run 2026-10-26: **15 of 16 controls pass**, 1 need review, 0 fail, 0 not yet run. 1 incident(s) open.
 
 ## Needs attention
 
 | id | risk | status | observed | owner |
 | --- | --- | --- | --- | --- |
-| C-12 | Profit estimates used for decisions are biased | WARN | expected $20.1M vs realized $12.4M profit (ratio 1.62) | Credit strategy |
-| C-14 | Policy has disparate impact across geographies | WARN | lowest/highest state approval rate 0.41 (MS 33% vs NH 80%; 39 states with 1,000+ applicants) | Compliance |
+| C-12 | Profit estimates used for decisions are biased | WARN | expected $20.0M vs realized $12.4M profit (ratio 1.62) | Credit strategy |
 
 ## Risk and controls register
 
@@ -16,19 +15,19 @@ Run 2026-10-26: **14 of 16 controls pass**, 2 need review, 0 fail, 0 not yet run
 | C-01 | Data | Corrupt or incomplete input data reaches the model | Data-quality controls DQ-01 to DQ-17 gate the pipeline; any failure stops it | preventive | 0 failing checks | PASS | 83 checks, 0 warnings, 0 failures | Data engineering | Every pipeline run |
 | C-02 | Data | Post-issue information leaks into the default model | Payment and recovery fields are kept out of the model table | preventive | 0 leakage columns | PASS | no post-issue fields in model table | Data engineering | Every pipeline run |
 | C-03 | Model | Default model ranks risk worse than the lender's own grade | Out-of-time AUC floor and benchmark comparison | detective | AUC >= 0.66 and >= benchmark - 0.01 | PASS | GBM out-of-time AUC 0.688 vs benchmark 0.679 | Model owner | Every retrain |
-| C-04 | Model | Model overfits training vintages | Gap between training and out-of-time AUC | detective | <= 0.08 pass, <= 0.12 warn | PASS | train 0.745 - out-of-time 0.688 = 0.057 | Model owner | Every retrain |
+| C-04 | Model | Model overfits training vintages | Gap between training and out-of-time AUC | detective | <= 0.08 pass, <= 0.12 warn | PASS | train 0.725 - out-of-time 0.688 = 0.037 | Model owner | Every retrain |
 | C-05 | Model | Applicant population drifts away from training data | Population stability index of predicted PD | detective | < 0.10 pass, <= 0.25 warn | PASS | PSI 0.014 | Model owner | Monthly |
-| C-06 | Model | Predicted default rates are biased, misstating expected loss | Calibration in the large and by decile, out-of-time | detective | mean ratio within 10%, deciles within 35% | PASS | mean PD / default rate 0.91; worst decile actual/predicted off by 18% | Model owner | Every retrain |
+| C-06 | Model | Predicted default rates are biased, misstating expected loss | Calibration in the large and by decile, out-of-time | detective | mean ratio within 10%, deciles within 35% | PASS | mean PD / default rate 0.91; worst decile actual/predicted off by 17% | Model owner | Every retrain |
 | C-07 | Model | Model rewards worse credit attributes (indefensible decisions) | Perturbation test of every monotone-constrained input | preventive | 0 violations | PASS | 17 constrained inputs, 0 violations on 2,000 loans | Model validation | Every retrain |
 | C-08 | Compliance | Declined applicants cannot be given reasons (adverse action) | Every high-risk loan carries SHAP reason codes | preventive | 0% missing in top risk decile | PASS | 0.00% of highest-risk decile without a reason code | Model owner | Every scoring run |
 | C-09 | Model | Stress test misstates losses | Out-of-time backtest of expected vs. actual loss | detective | ratio 0.85-1.15 pass, 0.70-1.30 warn | PASS | expected / actual loss 0.95 | Risk analytics | Quarterly |
 | C-10 | Model | Macro sensitivity is noise | Significance of the unemployment coefficient after overdispersion adjustment | detective | z >= 2 | PASS | z = 9.5 (overdispersion-adjusted) | Risk analytics | Quarterly |
-| C-11 | Decision | Credit policy breaches its risk appetite | Optimized policy checked against loss budget, volume floor, concentration cap | preventive | all constraints met | PASS | severe loss 9.8% (limit 10%), volume 60% (floor 50%) | Credit strategy | Every policy change |
-| C-12 | Decision | Profit estimates used for decisions are biased | Expected vs. realized lifetime profit on the full book | detective | ratio 0.80-1.25 pass, 0.5-2 warn | WARN | expected $20.1M vs realized $12.4M profit (ratio 1.62) | Credit strategy | Quarterly |
-| C-13 | Decision | Policy launched without evidence or against guardrails | Launch decision must follow the pre-registered rule | preventive | decision consistent with rule | PASS | decision 'Launch the challenger', uplift CI low $62.46, default 12.1% vs 15.0% | Credit strategy | Every experiment |
-| C-14 | Compliance | Policy has disparate impact across geographies | Approval-rate ratio across states (4/5ths rule), reviewed as a proxy | detective | >= 0.80 pass, else review | WARN | lowest/highest state approval rate 0.41 (MS 33% vs NH 80%; 39 states with 1,000+ applicants) | Compliance | Every policy change |
+| C-11 | Decision | Credit policy breaches its risk appetite | Optimized policy checked against loss budget, volume floor, concentration cap | preventive | all constraints met | PASS | severe loss 9.9% (limit 10%), volume 60% (floor 50%) | Credit strategy | Every policy change |
+| C-12 | Decision | Profit estimates used for decisions are biased | Expected vs. realized lifetime profit on the full book | detective | ratio 0.80-1.25 pass, 0.5-2 warn | WARN | expected $20.0M vs realized $12.4M profit (ratio 1.62) | Credit strategy | Quarterly |
+| C-13 | Decision | Policy launched without evidence or against guardrails | Launch decision must follow the pre-registered rule | preventive | decision consistent with rule | PASS | decision 'Launch the challenger', uplift CI low $64.60, default 12.0% vs 15.0% | Credit strategy | Every experiment |
+| C-14 | Compliance | Policy has disparate impact across geographies | Approval-rate ratio across states (4/5ths rule), reviewed as a proxy | detective | >= 0.80 pass, else review | PASS | lowest/highest state approval rate 0.84 (MS 53% vs MD 63%; 39 states with 1,000+ applicants) | Compliance | Every policy change |
 | C-15 | AI | AI analyst gives wrong or unsupported answers | 28-question evaluation: accuracy, invented citations, judged faithfulness | detective | accuracy >= 95%, 0 invented citations, faithfulness >= 85% | PASS | accuracy 100%, answers with invented citations 0, faithfulness 95% | AI owner | Every prompt or model change |
-| C-16 | Technology | Credentials committed to the repository | Tracked files scanned for API keys and credential files | preventive | 0 findings | PASS | 69 tracked files, no credentials | Engineering | Every commit |
+| C-16 | Technology | Credentials committed to the repository | Tracked files scanned for API keys and credential files | preventive | 0 findings | PASS | 77 tracked files, no credentials | Engineering | Every commit |
 
 ## Incident log
 
@@ -39,6 +38,7 @@ Run 2026-10-26: **14 of 16 controls pass**, 2 need review, 0 fail, 0 not yet run
 | INC-003 | 2026-10-26 |  | medium | C-12 | Expected profit overstates realized profit | open |
 | INC-004 | 2026-10-26 | 2026-10-26 | high | C-15 | 10-K text extraction dropped most of each filing | closed |
 | INC-005 | 2026-10-26 | 2026-10-26 | medium | C-15 | Faithfulness judge under-reported supported claims | closed |
+| INC-006 | 2026-10-26 | 2026-10-26 | high | C-14 | Geographic disparity in approvals (fair-lending risk) | closed |
 
 ### INC-001: Default model ranked risk worse than Lending Club's sub-grade
 
@@ -74,3 +74,10 @@ Run 2026-10-26: **14 of 16 controls pass**, 2 need review, 0 fail, 0 not yet run
 - **Root cause:** Judge saw only the first 2,500 characters of each source, SQL results were shown without their query, the verdict parser failed on extra text, and bullet lists were split into broken claims.
 - **Remediation:** Judge sees 15,000 characters and the SQL behind each result; robust verdict parsing that records raw replies when unparseable; claim splitting per list item; tests for each case.
 - **Outcome:** Faithfulness 88-100% by category; remaining rejections reviewed and documented. · **Status:** closed
+
+### INC-006: Geographic disparity in approvals (fair-lending risk)
+
+- **Detected:** Control C-14: lowest/highest state approval-rate ratio 0.41 (Mississippi 33% vs. New Hampshire 80%), below the 0.80 four-fifths screen.
+- **Root cause:** State of residence (addr_state) was a model input. Geography can proxy for protected characteristics, so using it directly creates disparate-impact (redlining) risk.
+- **Remediation:** Removed addr_state from the model inputs (new FAIR_LENDING_EXCLUDED list), retrained, and reran the stress test, policy optimization, experiment and controls. The remaining difference across states comes from credit factors such as income, debt and credit history.
+- **Outcome:** Ratio 0.41 -> 0.84 (passes). Out-of-time AUC 0.6884 -> 0.6877; optimized realized profit $33.5M -> $33.6M; experiment uplift $84.12 -> $86.21 per applicant. · **Status:** closed

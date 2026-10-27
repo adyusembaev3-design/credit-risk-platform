@@ -210,8 +210,10 @@ def write_report(path: Path, perf: pd.DataFrame, calib: pd.DataFrame, stability:
         "- **No pricing inputs.** Grade, sub-grade, interest rate and installment are outputs of "
         "Lending Club's model; sub-grade is used only as the benchmark to beat.",
         "- **Out-of-time validation.** The test period comes after the training period, as it would in production.",
-        "- **Full credit file.** 35 application-time inputs, including 15 extended bureau attributes "
+        f"- **Full credit file.** {len(F.FEATURES)} application-time inputs, including 15 extended bureau attributes "
         "(utilization, recent account openings, credit limits, delinquency history) reported from 2013.",
+        f"- **Fair lending.** {', '.join(F.FAIR_LENDING_EXCLUDED)} is not an input: geography can proxy for "
+        "protected characteristics (incident INC-006).",
         "- **Monotone constraints** on credit score, income, DTI, inquiries, delinquencies, public records, "
         "bankruptcies, utilization and loan-to-income, so the model can never reward a worse value.",
         "- **Reason codes** are each loan's top three SHAP contributions that raised its risk.",

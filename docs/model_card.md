@@ -11,7 +11,7 @@ Generated 2026-10-26 from the current results by `python -m governance.run`.
 ## Data
 
 - Lending Club accepted loans, 36-month term, final outcome known. Train 2013-01-01 to 2014-06-01, validation 2014-07-01 to 2014-12-01, out-of-time test 2015-01-01 to 2015-12-01.
-- 35 application-time inputs (31 numeric, 4 categorical). Excluded by design: grade, sub_grade, int_rate, installment, payment_to_income (outputs of Lending Club's own pricing).
+- 34 application-time inputs (31 numeric, 3 categorical). Excluded by design: grade, sub_grade, int_rate, installment, payment_to_income (outputs of Lending Club's own pricing) and addr_state (fair lending: geography can proxy for protected characteristics).
 - Target: charged off or default = 1; fully paid = 0.
 
 ## Performance (out-of-time)
@@ -20,10 +20,10 @@ Generated 2026-10-26 from the current results by `python -m governance.run`.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Sub-grade benchmark | 0.679 | 0.357 | 0.262 |  |  | 14.89% | 283,026 |
 | WOE scorecard | 0.675 | 0.349 | 0.254 | 0.1209 | 13.07% | 14.89% | 283,026 |
-| GBM | 0.688 | 0.377 | 0.275 | 0.1198 | 13.62% | 14.89% | 283,026 |
+| GBM | 0.688 | 0.375 | 0.274 | 0.1198 | 13.62% | 14.89% | 283,026 |
 
 - Stability (PSI, train vs. out-of-time): 0.014.
-- Trees: 473 (early-stopped on validation).
+- Trees: 397 (early-stopped on validation).
 
 ## Design safeguards
 
@@ -59,7 +59,7 @@ Generated 2026-10-26 from the current results by `python -m governance.run`.
 | C-11 | Optimized policy checked against loss budget, volume floor, concentration cap | Every policy change | PASS |
 | C-12 | Expected vs. realized lifetime profit on the full book | Quarterly | WARN |
 | C-13 | Launch decision must follow the pre-registered rule | Every experiment | PASS |
-| C-14 | Approval-rate ratio across states (4/5ths rule), reviewed as a proxy | Every policy change | WARN |
+| C-14 | Approval-rate ratio across states (4/5ths rule), reviewed as a proxy | Every policy change | PASS |
 | C-15 | 28-question evaluation: accuracy, invented citations, judged faithfulness | Every prompt or model change | PASS |
 | C-16 | Tracked files scanned for API keys and credential files | Every commit | PASS |
 

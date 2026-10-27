@@ -1,6 +1,6 @@
 # Credit policy optimization report
 
-The optimized policy funds **60%** of the 2015 book and earned **$33.5M** of realized profit (1.55% of principal), vs. $12.4M (0.34%) for approving every loan and $19.2M (0.55%) for a grade A–D cutoff, while holding severe-recession losses to 9.8% (budget 10%).
+The optimized policy funds **60%** of the 2015 book and earned **$33.6M** of realized profit (1.55% of principal), vs. $12.4M (0.34%) for approving every loan and $19.2M (0.55%) for a grade A–D cutoff, while holding severe-recession losses to 9.9% (budget 10%).
 
 Book: 283,026 loans issued in 2015, $3,624M of principal. The policy is chosen from model predictions only; 2015 outcomes are used afterwards to measure realized profit.
 
@@ -8,9 +8,9 @@ Book: 283,026 loans issued in 2015, $3,624M of principal. The policy is chosen f
 
 | policy | loans | volume_share | exposure_usd_m | expected_profit_usd_m | expected_profit_severe_usd_m | severe_loss_rate | realized_profit_usd_m | realized_return | meets_constraints |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Approve all | 283,026 | 100% | 3,624 | 20.1 | -192.0 | 13.08% | 12.4 | 0.34% | no |
-| Grades A-D only | 271,977 | 96% | 3,486 | 19.3 | -178.5 | 12.56% | 19.2 | 0.55% | no |
-| Optimized | 162,188 | 60% | 2,158 | 61.2 | -41.9 | 9.83% | 33.5 | 1.55% | yes |
+| Approve all | 283,026 | 100% | 3,624 | 20.0 | -192.8 | 13.10% | 12.4 | 0.34% | no |
+| Grades A-D only | 271,977 | 96% | 3,486 | 19.4 | -179.1 | 12.58% | 19.2 | 0.55% | no |
+| Optimized | 162,463 | 60% | 2,165 | 59.5 | -44.7 | 9.92% | 33.6 | 1.55% | yes |
 
 Constraints: severe-scenario loss ≤ 10% of approved principal · approved volume ≥ 50% of the book · grades E, F, G ≤ 15% of approved principal. Solver: highs.
 
@@ -25,8 +25,8 @@ Rows are Lending Club grades; columns are deciles of predicted default risk (ban
 | C | approve | approve | approve | approve | approve | approve | approve | · | · | · |
 | D | approve | approve | approve | approve | approve | approve | approve | approve | approve | · |
 | E | approve | approve | approve | approve | approve | approve | approve | approve | approve | · |
-| F | approve | approve | approve | approve | approve | approve | approve | approve | approve | · |
-| G |  |  |  | approve | approve | approve | approve | approve | approve | · |
+| F |  | approve | approve | approve | approve | approve | approve | approve | approve | · |
+| G |  |  |  | approve |  | approve | approve | approve | approve | · |
 
 ## Profit frontier
 
@@ -36,27 +36,27 @@ Best expected profit at each severe-loss budget (no volume floor), and what that
 
 | severe_loss_budget | volume_share | expected_profit_usd_m | realized_profit_usd_m | severe_loss_rate |
 | --- | --- | --- | --- | --- |
-| 6.0% | 33% | 33.0 | 25.0 | 5.99% |
-| 6.5% | 35% | 38.5 | 25.7 | 6.50% |
-| 7.0% | 38% | 43.2 | 28.3 | 7.00% |
-| 7.5% | 43% | 48.5 | 32.3 | 7.49% |
-| 8.0% | 47% | 52.6 | 33.6 | 8.00% |
-| 8.5% | 49% | 55.7 | 33.3 | 8.45% |
-| 9.0% | 52% | 58.3 | 33.7 | 8.96% |
-| 9.5% | 57% | 60.4 | 35.5 | 9.32% |
-| 10.0% | 60% | 61.2 | 33.5 | 9.83% |
-| 10.5% | 63% | 61.6 | 32.7 | 10.33% |
-| 11.0% | 63% | 61.6 | 32.7 | 10.33% |
-| 11.5% | 63% | 61.6 | 32.7 | 10.33% |
-| 12.0% | 63% | 61.6 | 32.7 | 10.33% |
-| 12.5% | 63% | 61.6 | 32.7 | 10.33% |
-| 13.0% | 63% | 61.6 | 32.7 | 10.33% |
-| 13.5% | 63% | 61.6 | 32.7 | 10.33% |
-| 14.0% | 63% | 61.6 | 32.7 | 10.33% |
-| 14.5% | 63% | 61.6 | 32.7 | 10.33% |
-| 15.0% | 63% | 61.6 | 32.7 | 10.33% |
-| 15.5% | 63% | 61.6 | 32.7 | 10.33% |
-| 16.0% | 63% | 61.6 | 32.7 | 10.33% |
+| 6.0% | 32% | 30.7 | 24.4 | 6.00% |
+| 6.5% | 34% | 36.2 | 25.5 | 6.50% |
+| 7.0% | 37% | 41.2 | 28.1 | 6.98% |
+| 7.5% | 43% | 45.9 | 31.7 | 7.49% |
+| 8.0% | 46% | 50.5 | 33.6 | 8.00% |
+| 8.5% | 49% | 53.4 | 33.3 | 8.50% |
+| 9.0% | 54% | 56.0 | 34.7 | 8.98% |
+| 9.5% | 57% | 58.6 | 35.5 | 9.41% |
+| 10.0% | 60% | 59.5 | 33.6 | 9.92% |
+| 10.5% | 64% | 59.9 | 31.9 | 10.42% |
+| 11.0% | 64% | 59.9 | 31.9 | 10.42% |
+| 11.5% | 64% | 59.9 | 31.9 | 10.42% |
+| 12.0% | 64% | 59.9 | 31.9 | 10.42% |
+| 12.5% | 64% | 59.9 | 31.9 | 10.42% |
+| 13.0% | 64% | 59.9 | 31.9 | 10.42% |
+| 13.5% | 64% | 59.9 | 31.9 | 10.42% |
+| 14.0% | 64% | 59.9 | 31.9 | 10.42% |
+| 14.5% | 64% | 59.9 | 31.9 | 10.42% |
+| 15.0% | 64% | 59.9 | 31.9 | 10.42% |
+| 15.5% | 64% | 59.9 | 31.9 | 10.42% |
+| 16.0% | 64% | 59.9 | 31.9 | 10.42% |
 
 ## Profit model
 
@@ -72,7 +72,7 @@ Expected profit = (1 − PD) × scheduled interest × yield_good + PD × (schedu
 | F | 77.6% | 51.8% |
 | G | 72.2% | 52.2% |
 
-Calibration check, every 2015 loan: expected profit $20.1M vs. realized $12.4M.
+Calibration check, every 2015 loan: expected profit $20.0M vs. realized $12.4M.
 
 ## Limitations
 

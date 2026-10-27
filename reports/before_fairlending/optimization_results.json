@@ -1,0 +1,237 @@
+{
+  "constraints": {
+    "max_severe_loss_rate": 0.1,
+    "min_volume_share": 0.5,
+    "max_risky_share": 0.15
+  },
+  "policies": [
+    {
+      "policy": "Approve all",
+      "loans": 283026,
+      "volume_share": 1.0,
+      "exposure_usd_m": 3624.3008,
+      "expected_profit_usd_m": 20.053132476302792,
+      "expected_profit_severe_usd_m": -192.03951338056487,
+      "severe_loss_rate": 0.1307748181682679,
+      "realized_profit_usd_m": 12.371029219202375,
+      "realized_return": 0.003413356093181442,
+      "meets_constraints": "no"
+    },
+    {
+      "policy": "Grades A-D only",
+      "loans": 271977,
+      "volume_share": 0.9619373687195059,
+      "exposure_usd_m": 3486.350375,
+      "expected_profit_usd_m": 19.27799554833546,
+      "expected_profit_severe_usd_m": -178.52556661443097,
+      "severe_loss_rate": 0.12560384115046622,
+      "realized_profit_usd_m": 19.20865208330169,
+      "realized_return": 0.005509673445630573,
+      "meets_constraints": "no"
+    },
+    {
+      "policy": "Optimized",
+      "loans": 162188,
+      "volume_share": 0.5955187549554386,
+      "exposure_usd_m": 2158.3391,
+      "expected_profit_usd_m": 61.18712844468673,
+      "expected_profit_severe_usd_m": -41.88341599849269,
+      "severe_loss_rate": 0.09833240892475176,
+      "realized_profit_usd_m": 33.50187973020124,
+      "realized_return": 0.015522064966622362,
+      "meets_constraints": "yes"
+    }
+  ],
+  "frontier": [
+    {
+      "severe_loss_budget": 0.06,
+      "volume_share": 0.32635350658532536,
+      "expected_profit_usd_m": 33.013573157087095,
+      "realized_profit_usd_m": 25.00822898170003,
+      "severe_loss_rate": 0.05992943930407559
+    },
+    {
+      "severe_loss_budget": 0.065,
+      "volume_share": 0.34662334042472415,
+      "expected_profit_usd_m": 38.54395341950734,
+      "realized_profit_usd_m": 25.69293249710005,
+      "severe_loss_rate": 0.06499782943513789
+    },
+    {
+      "severe_loss_budget": 0.07,
+      "volume_share": 0.3765039728490527,
+      "expected_profit_usd_m": 43.19288437082573,
+      "realized_profit_usd_m": 28.32192669150019,
+      "severe_loss_rate": 0.06999886026657572
+    },
+    {
+      "severe_loss_budget": 0.075,
+      "volume_share": 0.4325199773705317,
+      "expected_profit_usd_m": 48.53798109589603,
+      "realized_profit_usd_m": 32.26117976819997,
+      "severe_loss_rate": 0.074879049772893
+    },
+    {
+      "severe_loss_budget": 0.08,
+      "volume_share": 0.46643151832209956,
+      "expected_profit_usd_m": 52.62938106073181,
+      "realized_profit_usd_m": 33.56140756609997,
+      "severe_loss_rate": 0.0799994151010393
+    },
+    {
+      "severe_loss_budget": 0.085,
+      "volume_share": 0.4863928098903932,
+      "expected_profit_usd_m": 55.71028277369926,
+      "realized_profit_usd_m": 33.3215603434003,
+      "severe_loss_rate": 0.08454067880688627
+    },
+    {
+      "severe_loss_budget": 0.09,
+      "volume_share": 0.5223054954489429,
+      "expected_profit_usd_m": 58.305079866247894,
+      "realized_profit_usd_m": 33.74645681470087,
+      "severe_loss_rate": 0.08957963775466667
+    },
+    {
+      "severe_loss_budget": 0.095,
+      "volume_share": 0.5730144832349456,
+      "expected_profit_usd_m": 60.42624206218877,
+      "realized_profit_usd_m": 35.52804985610094,
+      "severe_loss_rate": 0.09324329905750563
+    },
+    {
+      "severe_loss_budget": 0.1,
+      "volume_share": 0.5955187549554386,
+      "expected_profit_usd_m": 61.18712844468673,
+      "realized_profit_usd_m": 33.50187973020124,
+      "severe_loss_rate": 0.09833240892475176
+    },
+    {
+      "severe_loss_budget": 0.105,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.11,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.115,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.12,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.125,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.13,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.135,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.14,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.145,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.15,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.155,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    },
+    {
+      "severe_loss_budget": 0.16,
+      "volume_share": 0.6331426050508832,
+      "expected_profit_usd_m": 61.599657443126056,
+      "realized_profit_usd_m": 32.687115779300456,
+      "severe_loss_rate": 0.103279435280904
+    }
+  ],
+  "yield_factors": [
+    {
+      "grade": "A",
+      "yield_good": 0.8371354109703234,
+      "yield_bad": 0.709734039660061
+    },
+    {
+      "grade": "B",
+      "yield_good": 0.8219389485362639,
+      "yield_bad": 0.6774227645218222
+    },
+    {
+      "grade": "C",
+      "yield_good": 0.8040739817482354,
+      "yield_bad": 0.6465093354577545
+    },
+    {
+      "grade": "D",
+      "yield_good": 0.791946448155582,
+      "yield_bad": 0.603955534514494
+    },
+    {
+      "grade": "E",
+      "yield_good": 0.7681011349640482,
+      "yield_bad": 0.5674853608146563
+    },
+    {
+      "grade": "F",
+      "yield_good": 0.7758027991362766,
+      "yield_bad": 0.5179523058974346
+    },
+    {
+      "grade": "G",
+      "yield_good": 0.7224832315348433,
+      "yield_bad": 0.5216612495796134
+    }
+  ],
+  "calibration": {
+    "expected_usd_m": 20.053132476302792,
+    "realized_usd_m": 12.37102921920237
+  },
+  "segments_approved": 47,
+  "segments": 67
+}
