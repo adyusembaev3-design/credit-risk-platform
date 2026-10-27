@@ -1,0 +1,29 @@
+# Mirrors the thresholds in streaming/config.py
+groups:
+  - name: credit-model-monitoring
+    rules:
+      - alert: ScorePopulationShift
+        expr: credit_score_psi > 0.20
+        for: 15s
+        labels: {severity: high}
+        annotations: {summary: "Predicted-PD distribution has shifted (PSI {{ $value | printf \"%.2f\" }} > 0.20)"}
+      - alert: FeaturePopulationShift
+        expr: credit_feature_psi > 0.20
+        for: 15s
+        labels: {severity: medium}
+        annotations: {summary: "Input {{ $labels.feature }} has shifted (PSI {{ $value | printf \"%.2f\" }})"}
+      - alert: CalibrationDrift
+        expr: credit_calibration_ratio > 1.30
+        for: 30s
+        labels: {severity: high}
+        annotations: {summary: "Observed defaults exceed predicted by {{ $value | printf \"%.2f\" }}x"}
+      - alert: ScoringLatencyHigh
+        expr: histogram_quantile(0.95, rate(credit_score_latency_seconds_bucket[1m])) > 0.05
+        for: 30s
+        labels: {severity: medium}
+        annotations: {summary: "p95 scoring latency above 50 ms"}
+      - alert: ScorerDown
+        expr: up{job="credit-scorer"} == 0
+        for: 30s
+        labels: {severity: high}
+        annotations: {summary: "Scorer is not exposing metrics"}

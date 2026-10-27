@@ -10,3 +10,5 @@ mlflow>=2.14
 requests>=2.31
 anthropic>=0.40
 python-dotenv>=1.0
+prometheus-client>=0.20
+confluent-kafka>=2.4

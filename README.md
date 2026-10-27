@@ -2,7 +2,7 @@
 
 End-to-end credit risk system on 2M+ public Lending Club loans: data pipeline, probability-of-default model, stress testing, portfolio optimization, real-time monitoring, model governance, and an AI risk analyst.
 
-**Status:** Modules 1–5, 7 and 8 complete (data pipeline, default model, stress testing, policy optimization, champion/challenger test, governance, AI risk analyst). Modules 6, 9, 10 in progress.
+**Status:** Modules 1–8 complete (data pipeline, default model, stress testing, policy optimization, champion/challenger test, live monitoring, governance, AI risk analyst). Modules 9–10 in progress.
 
 ## Module 1: Data pipeline and data quality
 
@@ -120,6 +120,24 @@ experiment/
   run.py     design, randomized readout, robustness, decision, report
 ```
 
+## Module 6: Live scoring and monitoring
+
+The 2015 book replayed as a live stream of applications, scored and monitored in real time. Results: [`reports/monitoring_report.md`](reports/monitoring_report.md).
+
+- **Scoring** reuses the batch logic exactly: LightGBM PD, baseline-scenario shift, risk band, approve/decline from the optimized policy, top-3 reason codes.
+- **Monitors** on a rolling window: PSI of predicted PD and six key inputs vs. training, approval rate, observed vs. predicted default rate, p95 latency, each with an alert threshold.
+- **Drift test:** part-way through, a riskier acquisition channel is injected (lower FICO, higher utilization, more new accounts); the report shows how many applications it took to alert and whether anything fired before.
+- **Backends:** `memory` (one process, no Docker) or `kafka` (producer → Kafka → scorer → decisions topic) with Prometheus metrics, alert rules and a provisioned Grafana dashboard.
+
+```
+streaming/
+  source.py    replay of 2015 applications, drift injection
+  scorer.py    PD -> stressed PD -> risk band -> policy decision -> reason codes
+  monitor.py   rolling PSI, approval, calibration, latency; alerting
+  run.py       memory and Kafka backends, Prometheus metrics, report
+  infra/       docker-compose (Kafka, Prometheus, Grafana), alert rules, dashboard
+```
+
 ## Module 7: Model governance and controls
 
 A risk and controls register with 16 automated control tests that read the project's real outputs. Results: [`reports/controls_report.md`](reports/controls_report.md) · Model card: [`docs/model_card.md`](docs/model_card.md).
@@ -201,7 +219,12 @@ python -m agent.ask "How much would the 2015 book lose in a severe recession?"
 python -m agent.ask --memo "Risk review of the 2015 book and peer lenders"
 python -m agent.evaluate
 
-# 9. Governance: run all controls, update incidents, regenerate the model card (Module 7)
+# 9. Live scoring and monitoring (Module 6)
+python -m streaming.run                                    # memory backend, no Docker
+docker compose -f streaming/infra/docker-compose.yml up -d # optional: Kafka + Prometheus + Grafana
+python -m streaming.run --metrics-port 8000 --rate 500     # watch at http://localhost:3000
+
+# 10. Governance: run all controls, update incidents, regenerate the model card (Module 7)
 python -m governance.run
 ```
 

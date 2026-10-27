@@ -1,0 +1,16 @@
+{
+  "backend": "memory",
+  "applications": 60000,
+  "seconds": 17.1734037399292,
+  "throughput_per_s": 3493.7744962285133,
+  "latency_p95_ms": 0.31108312502037744,
+  "drift_at": 30000,
+  "first_alert": {
+    "rule": "feature_psi:fico_mid",
+    "at": 32000,
+    "delay": 2000
+  },
+  "false_alarms_before_drift": 0,
+  "approval_rate_before": 0.5618333333333333,
+  "approval_rate_after": 0.3714
+}
